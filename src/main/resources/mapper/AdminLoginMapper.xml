@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.dao.AdminLoginMapper">
+    <sql id="cadmin">
+        admin_id,admin_name,admin_password,admin_addtime,
+        admin_state,role_id,admin_pid,admin_data,admin_remarks,admin_email
+    </sql>
+    <select id="adminLogin" resultType="FoAdmin">
+        select <include refid="cadmin"/> from fo_admin
+    </select>
+
+    <insert id="enrollAdmin" parameterType="FoAdmin">
+        insert into fo_admin (admin_name,admin_password,admin_email) values(#{adminName},#{adminPassword},#{adminEmail})
+    </insert>
+</mapper>
