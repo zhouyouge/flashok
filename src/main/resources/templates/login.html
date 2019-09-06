@@ -1,0 +1,64 @@
+<meta charset="utf-8">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <base href="http://www.tiantianchong.cn:80/"/>
+    <title>充电桩后台管理系统</title>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <link rel="stylesheet" type="text/css" href="../platform/common/font/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../platform/model/login/css/login.css" />
+    <link rel="stylesheet" href="../platform/plugin/util/css/validate.css" />
+    <link rel="stylesheet" href="../platform/plugin/util/css/load.css" />
+    <link rel="icon" href="../platform/model/login/img/log.ico" type="img/x-ico" />
+    <script type="text/javascript" src="../platform/plugin/util/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../platform/plugin/util/js/jquery-validate.js"></script>
+    <script type="text/javascript" src="../platform/model/login/js/login1.js"></script>
+    
+</head>
+
+<script language="JavaScript">
+    function uNFocus(){
+        $("#j_username").focus();
+    }
+    function pWFocus(){
+        $("#password").focus();
+    }
+    function cFocus(){
+        $("#code").focus();
+    }
+
+</script>
+
+
+<body onload="uNFocus()">
+<p class="login-title"><i></i></p>
+<div class="loginbgr">
+    <div class="loginBan">
+        <form method="post" id="form" name="form" action="j_spring_security_check">
+            <div class="loginCede">
+                <p class="lgName">后台管理系统</p>
+                <input type="hidden" id="j_password" name="j_password"/>
+                <div class="inputText form_control" ><i class="iconfont  icon-login-user"> | </i><input class="required" id="j_username" name="j_username" maxlength="20" data-tip="请输入用户名" data-valid="isNonEmpty||between:4-20" data-error="用戶名不能为空||用戶名格式不正确" placeholder="用户名" value="" onkeydown="if(event.keyCode==13){pWFocus();}"></div>
+                <div class="inputText form_control"><i class="iconfont  icon-login-pwd"> | </i><input class="required" maxlength="16" type="password" placeholder="密码" value="" data-tip="请输入您的密码" data-valid="isNonEmpty||between:1-16" data-error="密码不能为空||密码长度1-16位" name="password" id="password" onkeydown="if(event.keyCode==13){cFocus();}"></div>
+                <div class="inputText code form_control"><i class="iconfont  icon-login-code"> | </i><input class="required"  maxlength="4" value="" placeholder="验证码" data-tip="请输入验证码" data-valid="isNonEmpty||between:4" data-error="验证码不能为空||验证码格式不正确" id="code" name="code"></div><img src="../login/code.so" title="点击换一张"  id="codeImg"  onclick="reloadCode()"><a  onclick="reloadCode()">看不清</a>
+                <div><button id="sub" type="button" style="background-color: rgb(9,163,220);">登录</button></div>
+                <div><button id="sub" type="button" style="background-color: rgb(9,163,220);">注册</button></div>
+            </div>
+        </form>
+    </div>
+</div>
+<p class="login-end">充电桩后台管理系统</p>
+<div class="load2 load" style="display: none;">
+    <div class="loadEffect">
+        <div><span></span></div>
+        <div><span></span></div>
+        <div><span></span></div>
+        <div><span></span></div>
+        <kit>正在登录中……</kit>
+    </div>
+</div>
+</body>
+
+</html>
