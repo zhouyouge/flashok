@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = {"com.hz.service","com.hz.controller"})
 @MapperScan("com.hz.dao")
 public class FlashokApplication {
-    //xxxx
+    //xxxx1231212
     public static void main(String[] args) {
         SpringApplication.run(FlashokApplication.class, args);
     }
