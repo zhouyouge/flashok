@@ -12,6 +12,6 @@
     </select>
 
     <insert id="enrollAdmin" parameterType="FoAdmin">
-        insert into fo_admin (admin_name,admin_password,admin_email) values(#{adminName},#{adminPassword},#{adminEmail})
+        insert into fo_admin (admin_name,admin_password,admin_email,admin_addtime) values(#{adminName},#{adminPassword},#{adminEmail},#{adminAddtime})
     </insert>
 </mapper>
