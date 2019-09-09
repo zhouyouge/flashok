@@ -8,10 +8,14 @@
         admin_state,role_id,admin_pid,admin_data,admin_remarks,admin_email
     </sql>
     <select id="adminLogin" resultType="FoAdmin">
-        select <include refid="cadmin"/> from fo_admin
+        select * from fo_admin where admin_name = #{admin_name} and  admin_password = #{admin_password}
     </select>
 
     <insert id="enrollAdmin" parameterType="FoAdmin">
-        insert into fo_admin (admin_name,admin_password,admin_email,admin_addtime) values(#{adminName},#{adminPassword},#{adminEmail},#{adminAddtime})
+        insert into fo_admin (admin_name,admin_password,admin_email,admin_addtime) values(#{admin_name},#{admin_password},#{admin_email},#{admin_addtime})
     </insert>
+
+    <select id="panduanName" parameterType="String" resultType="FoAdmin">
+        select admin_email from fo_admin where admin_email = #{admin_email}
+    </select>
 </mapper>

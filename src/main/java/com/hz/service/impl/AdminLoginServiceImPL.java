@@ -12,12 +12,17 @@ public class AdminLoginServiceImPL implements AdminLoginService {
     @Resource
     private AdminLoginMapper adminLoginMapper;
     @Override
-    public FoAdmin adminLogin() throws Exception {
-        return adminLoginMapper.adminLogin();
+    public FoAdmin adminLogin(String adminName,String adminPassword) throws Exception {
+        return adminLoginMapper.adminLogin(adminName,adminPassword);
     }
     @Override
     public int enrollAdmin(FoAdmin foAdmin)throws Exception{
         return adminLoginMapper.enrollAdmin(foAdmin);
+    }
+
+    @Override
+    public FoAdmin panduanName(String adminEmail) throws Exception {
+        return adminLoginMapper.panduanName(adminEmail);
     }
 
 }
