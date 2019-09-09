@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/adminlogin")
@@ -23,18 +25,27 @@ public class AdminLoginController {
         return "";
     }
     @RequestMapping("/enrolladmin")
-    public String enrollAdmin(@RequestParam(value = "adminName",required = true)String adminName,
-                              @RequestParam(value = "adminPassword",required = true) String adminPassword,
-                              @RequestParam(value = "adminEmail",required = true) String adminEmail){
+    public String enrollAdmin(@RequestParam(value = "name")String adminName,
+                              @RequestParam(value = "password") String adminPassword,
+                              @RequestParam(value = "account") String adminEmail){
         FoAdmin foAdmin = new FoAdmin();
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = sdf.format(date);
+        System.out.println(time);
         foAdmin.setAdminName(adminName);
         foAdmin.setAdminPassword(adminPassword);
         foAdmin.setAdminEmail(adminEmail);
+        foAdmin.setAdminAddtime(time);
         try {
             int i = adminLoginService.enrollAdmin(foAdmin);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "login.html";
+    }
+    @RequestMapping("/panduanName")
+    public String panduanName(){
         return "";
     }
 }
