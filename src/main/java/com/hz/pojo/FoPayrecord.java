@@ -3,45 +3,40 @@ package com.hz.pojo;
 
 public class FoPayrecord {
 
-  private long payrecordId;
-  private long userId;
-  private String payrecordTime;
-  private double payrecordMoney;
+  private long payrecord_id;//充值记录ID
+  private long user_id;//用户ID
+  private String payrecord_time;//充值时间
+  private double payrecord_money;//充值金额
 
-
-  public long getPayrecordId() {
-    return payrecordId;
+  public long getPayrecord_id() {
+    return payrecord_id;
   }
 
-  public void setPayrecordId(long payrecordId) {
-    this.payrecordId = payrecordId;
+  public void setPayrecord_id(long payrecord_id) {
+    this.payrecord_id = payrecord_id;
   }
 
-
-  public long getUserId() {
-    return userId;
+  public long getUser_id() {
+    return user_id;
   }
 
-  public void setUserId(long userId) {
-    this.userId = userId;
+  public void setUser_id(long user_id) {
+    this.user_id = user_id;
   }
 
-
-  public String getPayrecordTime() {
-    return payrecordTime;
+  public String getPayrecord_time() {
+    return payrecord_time;
   }
 
-  public void setPayrecordTime(String payrecordTime) {
-    this.payrecordTime = payrecordTime;
+  public void setPayrecord_time(String payrecord_time) {
+    this.payrecord_time = payrecord_time;
   }
 
-
-  public double getPayrecordMoney() {
-    return payrecordMoney;
+  public double getPayrecord_money() {
+    return payrecord_money;
   }
 
-  public void setPayrecordMoney(double payrecordMoney) {
-    this.payrecordMoney = payrecordMoney;
+  public void setPayrecord_money(double payrecord_money) {
+    this.payrecord_money = payrecord_money;
   }
-
 }

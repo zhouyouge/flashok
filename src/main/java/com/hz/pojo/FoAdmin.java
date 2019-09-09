@@ -3,105 +3,95 @@ package com.hz.pojo;
 
 public class FoAdmin {
 
-  private long adminId;
-  private String adminName;
-  private String adminPassword;
-  private String adminAddtime;
-  private long adminState;
-  private long roleId;
-  private long adminPid;
-  private String adminData;
-  private String adminRemarks;
-  private String adminEmail;
+  private long admin_id;//管理员ID
+  private String admin_name;//管理员账号
+  private String admin_password;//管理员密码
+  private String admin_addtime;//管理员添加时间
+  private long admin_state;//状态（0正常1禁用）
+  private long role_id;//角色id
+  private long admin_pid;//管理员父级id
+  private String admin_data;//上一次登录时间
+  private String admin_remarks;//管理员备注
+  private String admin_email;//管理员邮箱
 
 
-  public long getAdminId() {
-    return adminId;
+  public long getAdmin_id() {
+    return admin_id;
   }
 
-  public void setAdminId(long adminId) {
-    this.adminId = adminId;
+  public void setAdmin_id(long admin_id) {
+    this.admin_id = admin_id;
   }
 
-
-  public String getAdminName() {
-    return adminName;
+  public String getAdmin_name() {
+    return admin_name;
   }
 
-  public void setAdminName(String adminName) {
-    this.adminName = adminName;
+  public void setAdmin_name(String admin_name) {
+    this.admin_name = admin_name;
   }
 
-
-  public String getAdminPassword() {
-    return adminPassword;
+  public String getAdmin_password() {
+    return admin_password;
   }
 
-  public void setAdminPassword(String adminPassword) {
-    this.adminPassword = adminPassword;
+  public void setAdmin_password(String admin_password) {
+    this.admin_password = admin_password;
   }
 
-
-  public String getAdminAddtime() {
-    return adminAddtime;
+  public String getAdmin_addtime() {
+    return admin_addtime;
   }
 
-  public void setAdminAddtime(String adminAddtime) {
-    this.adminAddtime = adminAddtime;
+  public void setAdmin_addtime(String admin_addtime) {
+    this.admin_addtime = admin_addtime;
   }
 
-
-  public long getAdminState() {
-    return adminState;
+  public long getAdmin_state() {
+    return admin_state;
   }
 
-  public void setAdminState(long adminState) {
-    this.adminState = adminState;
+  public void setAdmin_state(long admin_state) {
+    this.admin_state = admin_state;
   }
 
-
-  public long getRoleId() {
-    return roleId;
+  public long getRole_id() {
+    return role_id;
   }
 
-  public void setRoleId(long roleId) {
-    this.roleId = roleId;
+  public void setRole_id(long role_id) {
+    this.role_id = role_id;
   }
 
-
-  public long getAdminPid() {
-    return adminPid;
+  public long getAdmin_pid() {
+    return admin_pid;
   }
 
-  public void setAdminPid(long adminPid) {
-    this.adminPid = adminPid;
+  public void setAdmin_pid(long admin_pid) {
+    this.admin_pid = admin_pid;
   }
 
-
-  public String getAdminData() {
-    return adminData;
+  public String getAdmin_data() {
+    return admin_data;
   }
 
-  public void setAdminData(String adminData) {
-    this.adminData = adminData;
+  public void setAdmin_data(String admin_data) {
+    this.admin_data = admin_data;
   }
 
-
-  public String getAdminRemarks() {
-    return adminRemarks;
+  public String getAdmin_remarks() {
+    return admin_remarks;
   }
 
-  public void setAdminRemarks(String adminRemarks) {
-    this.adminRemarks = adminRemarks;
+  public void setAdmin_remarks(String admin_remarks) {
+    this.admin_remarks = admin_remarks;
   }
 
-
-  public String getAdminEmail() {
-    return adminEmail;
+  public String getAdmin_email() {
+    return admin_email;
   }
 
-  public void setAdminEmail(String adminEmail) {
-    this.adminEmail = adminEmail;
+  public void setAdmin_email(String admin_email) {
+    this.admin_email = admin_email;
   }
-
 }

@@ -3,25 +3,22 @@ package com.hz.pojo;
 
 public class FoRoleResource {
 
-  private long roleId;
-  private long resourceId;
+  private long role_id;//角色ID
+  private long resource_id;//模块ID
 
-
-  public long getRoleId() {
-    return roleId;
+  public long getRole_id() {
+    return role_id;
   }
 
-  public void setRoleId(long roleId) {
-    this.roleId = roleId;
+  public void setRole_id(long role_id) {
+    this.role_id = role_id;
   }
 
-
-  public long getResourceId() {
-    return resourceId;
+  public long getResource_id() {
+    return resource_id;
   }
 
-  public void setResourceId(long resourceId) {
-    this.resourceId = resourceId;
+  public void setResource_id(long resource_id) {
+    this.resource_id = resource_id;
   }
-
 }

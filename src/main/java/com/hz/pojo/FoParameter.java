@@ -3,75 +3,67 @@ package com.hz.pojo;
 
 public class FoParameter {
 
-  private long parameterId;
-  private long piletypeId;
-  private String parameterVoltage;
-  private String parameterCurrent;
-  private String parameterCapacity;
-  private String parameterElectricity;
-  private String parameterCreationtime;
+  private long parameter_id;//电桩类型参数ID
+  private long piletype_id;//电桩类型ID
+  private String parameter_voltage;//电桩额定电压
+  private String parameter_current;//电桩额定电流
+  private String parameter_capacity;//电桩额定功率
+  private String parameter_electricity;//电桩电流类型
+  private String parameter_creationtime;//创建时间
 
-
-  public long getParameterId() {
-    return parameterId;
+  public long getParameter_id() {
+    return parameter_id;
   }
 
-  public void setParameterId(long parameterId) {
-    this.parameterId = parameterId;
+  public void setParameter_id(long parameter_id) {
+    this.parameter_id = parameter_id;
   }
 
-
-  public long getPiletypeId() {
-    return piletypeId;
+  public long getPiletype_id() {
+    return piletype_id;
   }
 
-  public void setPiletypeId(long piletypeId) {
-    this.piletypeId = piletypeId;
+  public void setPiletype_id(long piletype_id) {
+    this.piletype_id = piletype_id;
   }
 
-
-  public String getParameterVoltage() {
-    return parameterVoltage;
+  public String getParameter_voltage() {
+    return parameter_voltage;
   }
 
-  public void setParameterVoltage(String parameterVoltage) {
-    this.parameterVoltage = parameterVoltage;
+  public void setParameter_voltage(String parameter_voltage) {
+    this.parameter_voltage = parameter_voltage;
   }
 
-
-  public String getParameterCurrent() {
-    return parameterCurrent;
+  public String getParameter_current() {
+    return parameter_current;
   }
 
-  public void setParameterCurrent(String parameterCurrent) {
-    this.parameterCurrent = parameterCurrent;
+  public void setParameter_current(String parameter_current) {
+    this.parameter_current = parameter_current;
   }
 
-
-  public String getParameterCapacity() {
-    return parameterCapacity;
+  public String getParameter_capacity() {
+    return parameter_capacity;
   }
 
-  public void setParameterCapacity(String parameterCapacity) {
-    this.parameterCapacity = parameterCapacity;
+  public void setParameter_capacity(String parameter_capacity) {
+    this.parameter_capacity = parameter_capacity;
   }
 
-
-  public String getParameterElectricity() {
-    return parameterElectricity;
+  public String getParameter_electricity() {
+    return parameter_electricity;
   }
 
-  public void setParameterElectricity(String parameterElectricity) {
-    this.parameterElectricity = parameterElectricity;
+  public void setParameter_electricity(String parameter_electricity) {
+    this.parameter_electricity = parameter_electricity;
   }
 
-
-  public String getParameterCreationtime() {
-    return parameterCreationtime;
+  public String getParameter_creationtime() {
+    return parameter_creationtime;
   }
 
-  public void setParameterCreationtime(String parameterCreationtime) {
-    this.parameterCreationtime = parameterCreationtime;
+  public void setParameter_creationtime(String parameter_creationtime) {
+    this.parameter_creationtime = parameter_creationtime;
   }
-
 }

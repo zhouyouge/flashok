@@ -3,85 +3,77 @@ package com.hz.pojo;
 
 public class FoUser {
 
-  private long userId;
-  private String userWechatId;
-  private String userWechatIocn;
-  private String userIdcard;
-  private String userPhone;
-  private double userMoney;
-  private String userCreatetime;
-  private long userState;
+  private long user_id;//用户ID
+  private String user_wechat_id;//用户微信号
+  private String user_wechat_iocn;//用户头像
+  private String user_idcard;//用户身份证号
+  private String user_phone;//用户电话
+  private double user_money;//用户余额
+  private String user_createtime;//用户创建时间
+  private long user_state;//用户状态
 
 
-  public long getUserId() {
-    return userId;
+  public long getUser_id() {
+    return user_id;
   }
 
-  public void setUserId(long userId) {
-    this.userId = userId;
+  public void setUser_id(long user_id) {
+    this.user_id = user_id;
   }
 
-
-  public String getUserWechatId() {
-    return userWechatId;
+  public String getUser_wechat_id() {
+    return user_wechat_id;
   }
 
-  public void setUserWechatId(String userWechatId) {
-    this.userWechatId = userWechatId;
+  public void setUser_wechat_id(String user_wechat_id) {
+    this.user_wechat_id = user_wechat_id;
   }
 
-
-  public String getUserWechatIocn() {
-    return userWechatIocn;
+  public String getUser_wechat_iocn() {
+    return user_wechat_iocn;
   }
 
-  public void setUserWechatIocn(String userWechatIocn) {
-    this.userWechatIocn = userWechatIocn;
+  public void setUser_wechat_iocn(String user_wechat_iocn) {
+    this.user_wechat_iocn = user_wechat_iocn;
   }
 
-
-  public String getUserIdcard() {
-    return userIdcard;
+  public String getUser_idcard() {
+    return user_idcard;
   }
 
-  public void setUserIdcard(String userIdcard) {
-    this.userIdcard = userIdcard;
+  public void setUser_idcard(String user_idcard) {
+    this.user_idcard = user_idcard;
   }
 
-
-  public String getUserPhone() {
-    return userPhone;
+  public String getUser_phone() {
+    return user_phone;
   }
 
-  public void setUserPhone(String userPhone) {
-    this.userPhone = userPhone;
+  public void setUser_phone(String user_phone) {
+    this.user_phone = user_phone;
   }
 
-
-  public double getUserMoney() {
-    return userMoney;
+  public double getUser_money() {
+    return user_money;
   }
 
-  public void setUserMoney(double userMoney) {
-    this.userMoney = userMoney;
+  public void setUser_money(double user_money) {
+    this.user_money = user_money;
   }
 
-
-  public String getUserCreatetime() {
-    return userCreatetime;
+  public String getUser_createtime() {
+    return user_createtime;
   }
 
-  public void setUserCreatetime(String userCreatetime) {
-    this.userCreatetime = userCreatetime;
+  public void setUser_createtime(String user_createtime) {
+    this.user_createtime = user_createtime;
   }
 
-
-  public long getUserState() {
-    return userState;
+  public long getUser_state() {
+    return user_state;
   }
 
-  public void setUserState(long userState) {
-    this.userState = userState;
+  public void setUser_state(long user_state) {
+    this.user_state = user_state;
   }
-
 }
