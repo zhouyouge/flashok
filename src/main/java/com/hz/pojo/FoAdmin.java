@@ -13,7 +13,15 @@ public class FoAdmin {
   private String admin_data;//上一次登录时间
   private String admin_remarks;//管理员备注
   private String admin_email;//管理员邮箱
+  private FoRole foRole;  //角色
 
+  public FoRole getFoRole() {
+    return foRole;
+  }
+
+  public void setFoRole(FoRole foRole) {
+    this.foRole = foRole;
+  }
 
   public long getAdmin_id() {
     return admin_id;

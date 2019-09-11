@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.dao.StatisticsMapper">
+    <sql id="cadmin">
+        admin_id,admin_name,admin_password,admin_addtime,
+        admin_state,role_id,admin_pid,admin_data,admin_remarks,admin_email
+    </sql>
+    <sql id="crole">
+        role_name,role_description,role_id
+    </sql>
+
+    <select id="getRoleList" resultType="FoRole">
+        select <include refid="crole"/> from fo_role
+    </select>
+
+    <delete id="deleteRole" parameterType="FoRole">
+        delete from fo_role where role_id = #{role_id}
+    </delete>
+
+    <delete id="deleteRoles">
+        delete from fo_role where role_id in
+        <foreach item="val" collection="array" open="(" separator="," close=")">
+            #{val}
+        </foreach>
+    </delete>
+
+    <insert id="insertRole" parameterType="FoRole">
+        insert into fo_role
+        <trim prefix="(" suffixOverrides=","  suffix=")">
+            <if test="role_name!=null">
+                role_name,
+            </if>
+            <if test="role_description!=null">
+                role_description
+            </if>
+        </trim> values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="role_name!=null">
+                #{role_name},
+            </if>
+            <if test="role_description!=null">
+                #{role_description}
+            </if>
+        </trim>
+    </insert>
+</mapper>
