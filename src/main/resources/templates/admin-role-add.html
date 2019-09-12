@@ -30,7 +30,7 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="/statisticsController/insertRole" method="post" class="form form-horizontal" id="form-admin-role-add">
+	<form  class="form form-horizontal" id="form-admin-role-add">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -40,7 +40,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">备注：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="role_description">
+				<input type="text" class="input-text" value="" placeholder="" id="role_description" name="role_description">
 			</div>
 		</div>
 		<!--<div class="row cl">-->
@@ -142,7 +142,7 @@
 		<!--</div>-->
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<button type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
+				<button class="btn btn-success radius" id="admin-role-save" name="admin-role-save" ><i class="icon-ok"></i>确定</button>
 			</div>
 		</div>
 	</form>
@@ -191,8 +191,8 @@ $(function(){
 		success:"valid",
 		submitHandler:function(form){
 			$(form).ajaxSubmit();
-			var index = parent.layer.getFrameIndex(window.name);
-			parent.layer.close(index);
+			// var index = parent.layer.getFrameIndex(window.name);
+			// parent.layer.close(index);
 		}
 	});
 
@@ -205,7 +205,26 @@ $(function(){
             $("#roleName").css("background-color","whilt");
 		}
     })
-
+	$("#admin-role-save").click(function () {
+	    var roleName = $("#roleName").val();
+	    var role_description = $("#role_description").val();
+		$.ajax({
+			url:"/statisticsController/insertRole",
+			data:{roleName:roleName,role_description:role_description},
+			dataType:"json",
+			type:"post",
+			success:function (res) {
+				if (res.code ==1){
+				   layer.msg("添加成功！",{icon:1,time:1000},function (){
+                       var index = parent.layer.getFrameIndex(window.name);
+                       parent.layer.close(index);
+				   })
+				}else {
+                    layer.msg("添加失败！",{icon:2,time:1000});
+				}
+            }
+		})
+    })
 
 });
 

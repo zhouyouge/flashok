@@ -2,7 +2,9 @@ package com.hz.controller;
 
 import com.hz.pojo.FoAdmin;
 import com.hz.pojo.FoRole;
+import com.hz.pojo.Page;
 import com.hz.service.StatisticsService;
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,61 +19,79 @@ public class StatisticsController {
     @Resource
     private StatisticsService statisticsService;
     @RequestMapping("/getRoleList")
-    public String getAdminList(Model model){
+    public String getAdminList(Model model,
+                               @RequestParam(value = "currpageno",required = false,defaultValue = "1")int currpageno,
+                               @RequestParam(value = "pagesize",required = false,defaultValue = "5")int pagesize){
         try {
-            List<FoRole> foRoleList = statisticsService.getRoleList();
+            List<FoRole> foRoleList = statisticsService.getRoleList(currpageno,pagesize);
+            Page page = new Page();
+            page.setCurrPageNo(currpageno);
+            page.setPageSize(pagesize);
             model.addAttribute(foRoleList);
+            model.addAttribute(page);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "/admin-role.html";
     }
-    @RequestMapping("/deleteRole/{role_id}")
-    public String deleteRole(@PathVariable("role_id") long role_id){
-//        JSONObject jsonObject = new JSONObject();
+    @RequestMapping("/deleteRole")
+    @ResponseBody
+    public JSONObject deleteRole(@RequestParam("roleid") long role_id){
+        JSONObject jsonObject = new JSONObject();
         try {
             FoRole foRole = new FoRole();
             foRole.setRole_id(role_id);
             int i = statisticsService.deleteRole(foRole);
             System.out.println(i+"xxxxxxxxxxx");
-//            if (i != 0){
-//                jsonObject.put("msg","删除成功");
-//                jsonObject.put("code","1");
-//            }else{
-//                jsonObject.put("msg","删除失败");
-//                jsonObject.put("code","2");
-//            }
+            if (i != 0){
+                jsonObject.put("code","1");
+            }else{
+                jsonObject.put("code","2");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        return jsonObject.toString();
-        return "forward:/statisticsController/getRoleList";
+        return jsonObject;
+//        return "forward:/statisticsController/getRoleList";
     }
 
     @RequestMapping("/insertRole")
-    public String insertRole(@RequestParam(value = "role_description",required = false)String role_description,
-                             @RequestParam(value = "role_name",required = true)String role_name){
+    @ResponseBody
+    public JSONObject insertRole(@RequestParam(value = "role_description",required = false)String role_description,
+                             @RequestParam(value = "roleName",required = true)String role_name){
+        JSONObject jsonObject = new JSONObject();
         FoRole foRole = new FoRole();
         foRole.setRole_name(role_name);
         foRole.setRole_description(role_description);
         try {
             int i = statisticsService.insertRole(foRole);
+            if (i!=0){
+                jsonObject.put("code","1");
+            }else{
+                jsonObject.put("code","2");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "forward:/statisticsController/getRoleList";
+        return jsonObject;
     }
 
     @RequestMapping("/deleteRoles")
     @ResponseBody
-    public Model deleteRoles(@RequestParam("idarr")String[] array,
-                             Model model){
+    public String deleteRoles(@RequestParam("idarr")String[] array
+                                  ){
+        JSONObject jsonObject = new JSONObject();
         try {
             int i = statisticsService.deleteRoles(array);
             System.out.println(i+"cccccccccccc");
+            if (i!=0){
+                jsonObject.put("code","1");
+            }else {
+                jsonObject.put("code","2");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return model;
+        return jsonObject.toString();
     }
 }

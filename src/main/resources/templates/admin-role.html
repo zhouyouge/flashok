@@ -21,10 +21,26 @@
 <![endif]-->
 <title>角色管理</title>
 </head>
+<style>
+    .fanye{
+        float: right;
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+    .btn-top {
+        background-color: rgb(94,185,94);
+        border-radius: 5px;
+    }
+    .btn-down {
+        background-color: rgb(94,185,94);
+        border-radius: 5px;
+    }
+
+</style>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 角色管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" class="btn btn-danger radius" id="deleteNotice"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" href="javascript:;" onclick="admin_role_add('添加角色','/admin-role-add.html','800')"><i class="Hui-iconfont">&#xe600;</i> 添加角色</a> </span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" class="btn btn-danger radius" id="deleteNotice"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" href="javascript:;" onclick="admin_role_add('添加角色','/admin-role-add.html','800')"><i class="Hui-iconfont">&#xe600;</i> 添加角色</a> </span><span class="r">共有数据：<strong>54</strong> 条</span> </div>
 	<table class="table table-border table-bordered table-hover table-bg">
 		<thead>
 			<tr>
@@ -47,7 +63,7 @@
 				<!--<td th:text="${admin.admin_name}"></td>-->
 				<td th:text="${role.role_description}"></td>
 				<td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','/admin-role-add.html','1')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-				<a title="删除" href="javascript:;" onclick="admin_role_del(this)" class="ml-5" style="text-decoration:none" th:href="@{'/statisticsController/deleteRole/'+${role.role_id}}"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<a title="删除"  class="ml-5" id="dele" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 			<!--<tr class="text-c">-->
 				<!--<td><input type="checkbox" value="" name=""></td>-->
@@ -75,6 +91,10 @@
 			<!--</tr>-->
 		</tbody>
 	</table>
+    <div class="fanye">
+    <button class="btn btn-top">上一页</button><span>第<strong>1</strong>页</span>
+    <button class="btn btn-down" th:href="@{/statisticsController/getRoleList(currpageno=${page.currPageNo}+1)}">下一页</button>
+    </div>
 </div>
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="/index/lib/jquery/1.9.1/jquery.min.js"></script>
@@ -94,24 +114,31 @@ function admin_role_edit(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
 /*管理员-角色-删除*/
-function admin_role_del(obj,id){
-	layer.confirm('角色删除须谨慎，确认要删除吗？',function(index){
-	    // $(".ml-5").attr("th:href","@{'/'+${role.role_id}}");
-        // $.ajax({
-        	// type: 'POST',
-        	// url:"/statisticsController/deleteRole",
-        	// dataType: 'json',
-        	// success: function(data){
-        	// 	$(obj).parents("tr").remove();
-        	// 	layer.msg('已删除!',{icon:1,time:1000});
-        	// },
-        	// error:function(data) {
-        	// 	console.log(data.msg);
-        	// },
-        // });
-	});
+//th:href="@{'/statisticsController/deleteRole/'+${role.role_id}}"
+$(function () {
+    $(document).on('click','#dele',function () {
+        var roleid = $(this).parent().prev().prev().prev().html();
+        layer.confirm('角色删除须谨慎，确认要删除吗？',function(){
+            $.ajax({
+                type: 'get',
+                data:{roleid:roleid},
+                url:"/statisticsController/deleteRole",
+                dataType: 'json',
+                // traditional:true,
+                success: function(data){
+                    if (data.code == 1){
+                        layer.msg("删除成功！",{icon:1,time:1000},function () {
+                            window.location.reload();
+                        });
+					}else{
+                        layer.msg("删除失败！",{icon:1,time:1000});
+					}
+                }
+            });
+        });
+    })
+})
 
-}
 $(function () {
     $("#deleteNotice").click(function () {
 		var chk_value = [];
@@ -122,20 +149,24 @@ $(function () {
 		if (chk_value.length<=0){
             layer.msg('请选择要删除的内容！',{icon:2,time:1000});
 		} else {
-		    if (confirm("你确定删除么？"+chk_value)){
-		        $.ajax({
-					url:"/statisticsController/deleteRoles",
-					type:"get",
-					data:{idarr:chk_value+""},
-                    traditional:true,
-					success:function () {
-						window.location.reload();
-                    },
-					error:function () {
-                        layer.msg('删除失败！',{icon:2,time:1000});
+		    layer.confirm("你确定删除这些数据么？",function () {
+                $.ajax({
+                    url:"/statisticsController/deleteRoles",
+                    type:"get",
+                    data:{idarr:chk_value+""},
+					dataType:"json",
+                    // traditional:true,
+                    success:function (res) {
+                        if (res.code == 1) {
+                            layer.msg("删除成功！",{icon:1,time:1000},function () {
+                                window.location.reload();
+                            });
+						}else{
+                            layer.msg("删除失败！",{icon:1,time:1000});
+						}
                     }
-				})
-			}
+                })
+            })
 		}
     })
 

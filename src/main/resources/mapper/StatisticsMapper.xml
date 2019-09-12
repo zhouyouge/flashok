@@ -12,7 +12,7 @@
     </sql>
 
     <select id="getRoleList" resultType="FoRole">
-        select <include refid="crole"/> from fo_role
+        select <include refid="crole"/> from fo_role limit #{pagecurr},#{pagesize}
     </select>
 
     <delete id="deleteRole" parameterType="FoRole">

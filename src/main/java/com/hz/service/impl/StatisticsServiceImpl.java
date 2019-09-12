@@ -16,8 +16,9 @@ public class StatisticsServiceImpl implements StatisticsService {
     private StatisticsMapper statisticsMapper;
 
     @Override
-    public List<FoRole> getRoleList() throws Exception {
-        return statisticsMapper.getRoleList();
+    public List<FoRole> getRoleList(int currpageno,int pagesize) throws Exception {
+        int pagecurr = (currpageno-1)*pagesize;
+        return statisticsMapper.getRoleList(pagecurr,pagesize); //pagecurr 偏移量
     }
 
     @Override
