@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface StatisticsService {
     public List<FoRole> getRoleList(int pagecurr,int pagesize)throws Exception;
+    public int getRoleCount()throws Exception;
     public int deleteRole(FoRole foRole)throws Exception;
     public int insertRole(FoRole foRole)throws Exception;
     public int deleteRoles(String[] array)throws Exception;

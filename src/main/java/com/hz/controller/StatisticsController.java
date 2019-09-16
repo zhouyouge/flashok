@@ -24,9 +24,12 @@ public class StatisticsController {
                                @RequestParam(value = "pagesize",required = false,defaultValue = "5")int pagesize){
         try {
             List<FoRole> foRoleList = statisticsService.getRoleList(currpageno,pagesize);
+            //总记录数。
+            int totalCount = statisticsService.getRoleCount();
             Page page = new Page();
             page.setCurrPageNo(currpageno);
             page.setPageSize(pagesize);
+            page.setTotalCount(totalCount);
             model.addAttribute(foRoleList);
             model.addAttribute(page);
         } catch (Exception e) {

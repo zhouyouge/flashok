@@ -15,6 +15,10 @@
         select <include refid="crole"/> from fo_role limit #{pagecurr},#{pagesize}
     </select>
 
+    <select id="getRoleCount" resultType="int">
+        select count(1) from fo_role
+    </select>
+
     <delete id="deleteRole" parameterType="FoRole">
         delete from fo_role where role_id = #{role_id}
     </delete>

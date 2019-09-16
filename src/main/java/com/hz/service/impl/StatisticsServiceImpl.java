@@ -22,6 +22,11 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     @Override
+    public int getRoleCount() throws Exception {
+        return statisticsMapper.getRoleCount();
+    }
+
+    @Override
     public int deleteRole(FoRole foRole) throws Exception {
         return statisticsMapper.deleteRole(foRole);
     }

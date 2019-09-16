@@ -4,14 +4,58 @@ package com.hz.pojo;
 public class FoUser {
 
   private long user_id;//用户ID
-  private String user_wechat_id;//用户微信号
+  private String user_wechat_name;//用户微信号
   private String user_wechat_iocn;//用户头像
+  private int user_sex;//用户性别
   private String user_idcard;//用户身份证号
   private String user_phone;//用户电话
   private double user_money;//用户余额
   private String user_createtime;//用户创建时间
-  private long user_state;//用户状态
+  private Integer user_state;//用户状态
+  private String user_addr;//用户地址
+  private int user_integral; //用户积分
+  private String user_email;//用户邮箱
+  private String user_beizhu;//用户备注
 
+  public String getUser_beizhu() {
+    return user_beizhu;
+  }
+
+  public void setUser_beizhu(String user_beizhu) {
+    this.user_beizhu = user_beizhu;
+  }
+
+  public int getUser_sex() {
+    return user_sex;
+  }
+
+  public void setUser_sex(int user_sex) {
+    this.user_sex = user_sex;
+  }
+
+  public String getUser_email() {
+        return user_email;
+    }
+
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
+    }
+
+    public String getUser_addr() {
+    return user_addr;
+  }
+
+  public void setUser_addr(String user_addr) {
+    this.user_addr = user_addr;
+  }
+
+  public int getUser_integral() {
+    return user_integral;
+  }
+
+  public void setUser_integral(int user_integral) {
+    this.user_integral = user_integral;
+  }
 
   public long getUser_id() {
     return user_id;
@@ -21,15 +65,15 @@ public class FoUser {
     this.user_id = user_id;
   }
 
-  public String getUser_wechat_id() {
-    return user_wechat_id;
-  }
+    public String getUser_wechat_name() {
+        return user_wechat_name;
+    }
 
-  public void setUser_wechat_id(String user_wechat_id) {
-    this.user_wechat_id = user_wechat_id;
-  }
+    public void setUser_wechat_name(String user_wechat_name) {
+        this.user_wechat_name = user_wechat_name;
+    }
 
-  public String getUser_wechat_iocn() {
+    public String getUser_wechat_iocn() {
     return user_wechat_iocn;
   }
 
@@ -69,11 +113,11 @@ public class FoUser {
     this.user_createtime = user_createtime;
   }
 
-  public long getUser_state() {
+  public Integer getUser_state() {
     return user_state;
   }
 
-  public void setUser_state(long user_state) {
+  public void setUser_state(Integer user_state) {
     this.user_state = user_state;
   }
 }

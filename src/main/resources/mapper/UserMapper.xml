@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.dao.UserMapper">
+    <sql id="cuser">
+        user_id,user_wechat_name,user_wechat_iocn,user_sex,user_idcard,
+        user_phone,user_money,user_createtime,user_state,
+        user_addr,user_integral,user_email
+    </sql>
+    <sql id="whereuser">
+        <where>
+            <if test="user_wechat_name!=null">
+                user_wechat_name like concat('%',#{user_wechat_name},'%')
+            </if>
+            <if test="user_state!=null">
+                and user_state = #{user_state}
+            </if>
+        </where>
+    </sql>
+    <select id="getUserList" resultType="FoUser">
+        select <include refid="cuser"/> from fo_user <include refid="whereuser"/>
+        limit #{pagecurr},#{pagesize}
+    </select>
+    <select id="getUserCount" resultType="int">
+        select count(1) from fo_user <include refid="whereuser"/>
+    </select>
+
+    <insert id="addUser" parameterType="FoUser">
+        insert into fo_user
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="user_wechat_name!=null">
+                user_wechat_name,
+            </if>
+            <if test="user_sex!=0">
+                user_sex,
+            </if>
+            <if test="user_phone!=null">
+                user_phone,
+            </if>
+            <if test="user_email!=null">
+                user_email,
+            </if>
+            <if test="user_addr!=null">
+                user_addr,
+            </if>
+            <if test="user_beizhu!=null">
+                user_beizhu,
+            </if>
+            <if test="user_createtime!=null">
+                user_createtime,
+            </if>
+        </trim> values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="user_wechat_name!=null">
+                #{user_wechat_name},
+            </if>
+            <if test="user_sex!=0">
+                #{user_sex},
+            </if>
+            <if test="user_phone!=null">
+                #{user_phone},
+            </if>
+            <if test="user_email!=null">
+                #{user_email},
+            </if>
+            <if test="user_addr!=null">
+                #{user_addr},
+            </if>
+            <if test="user_beizhu!=null">
+                #{user_beizhu},
+            </if>
+            <if test="user_createtime!=null">
+                #{user_createtime},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updatState">
+        update fo_user set user_state = #{user_state} where user_id = #{user_id}
+    </update>
+
+    <select id="userShow" resultType="FoUser">
+        select <include refid="cuser"/> from fo_user where user_id = #{user_id}
+    </select>
+</mapper>
