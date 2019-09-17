@@ -28,58 +28,48 @@
 <article class="page-container">
     <form  class="form form-horizontal" id="form-admin-role-add">
         <div class="row cl">
+                    <input type="hidden" class="input-text" th:value="${station.station_id}" id="station_id"  name="station_id" >
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>电站编号：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="hidden" class="input-text" value="" placeholder="" id="station_id"  name="station_id">
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>电站编号：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="station_code"  name="station_code">
+                    <input type="text" class="input-text" value="" th:placeholder="${station.station_code}" id="station_code"  name="station_code" disabled>
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>电站名称：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" th:value="${station.station_name}" placeholder="" id="station_name" name="station_name">
+                    <input type="text" class="input-text" value="" th:placeholder="${station.station_name}" id="station_name" name="station_name" disabled>
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>成本费用 ：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="station_cost"  name="station_cost">
+                    <input type="text" class="input-text" th:value="${station.station_cost}" placeholder="" id="station_cost"  name="station_cost">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>服务费：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="station_service"  name="station_service">
+                    <input type="text" class="input-text" th:value="${station.station_service}" placeholder="" id="station_service"  name="station_service">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>直流充电电费：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="state_dcprice"  name="state_dcprice">
+                    <input type="text" class="input-text" th:value="${station.state_dcprice}" placeholder="" id="state_dcprice"  name="state_dcprice">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>交流充电电费：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="state_acprice"  name="state_acprice">
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>电站状态：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="station_state"  name="station_state">
+                    <input type="text" class="input-text" th:value="${station.state_acprice}" placeholder="" id="state_acprice"  name="state_acprice">
                 </div>
             </div>
 
-        <div class="row cl">
-            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-                <button class="btn btn-success radius" id="admin-role-save" name="admin-role-save" ><i class="icon-ok"></i>确定</button>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <button class="btn btn-success radius" id="admin-role-save" name="admin-role-save" ><i class="icon-ok"></i>确定</button>
+                </div>
             </div>
         </div>
     </form>
@@ -123,6 +113,7 @@
             }
         })
         $("#admin-role-save").click(function () {
+            var station_id = $("#station_id").val();
             var station_code = $("#station_code").val();
             var station_name = $("#station_name").val();
             var station_cost = $("#station_cost").val();
@@ -130,7 +121,7 @@
             var state_dcprice = $("#state_dcprice").val();
             var state_acprice = $("#state_acprice").val();
             var station_state = $("#station_state").val();
-            var adata = {station_code:station_code,station_name:station_name,station_cost:station_cost,station_service:station_service,state_dcprice:state_dcprice,state_acprice:state_acprice,station_state:station_state};
+            var adata = {station_id:station_id,station_code:station_code,station_name:station_name,station_cost:station_cost,station_service:station_service,state_dcprice:state_dcprice,state_acprice:state_acprice,station_state:station_state};
             var data = JSON.stringify(adata);
             $.ajax({
                 url:"/stationController/updStation",

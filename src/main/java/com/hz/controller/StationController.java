@@ -6,7 +6,10 @@ import com.hz.service.StationService;
 import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -42,8 +45,8 @@ public class StationController {
         return "station-type";
     }
 
-    @RequestMapping("/updStationInfo/{station_id}")
-    public String updStationInfo(@PathVariable("station_id") long station_id, Model model){
+    @RequestMapping("/updStationInfo")
+    public String updStationInfo(@RequestParam("station_id") int station_id, Model model){
         try {
             FoStation station = stationService.getStationrById(station_id);
             model.addAttribute("station",station);
@@ -58,6 +61,7 @@ public class StationController {
         JSONObject jsonObject = new JSONObject();
         try {
             int i  = stationService.updStation(station);
+            System.out.println(i+"ssssssssssssssssssssssssssss");
             if (i!=0){
                 jsonObject.put("code","1");
             }else{

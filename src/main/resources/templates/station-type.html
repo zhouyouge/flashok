@@ -76,7 +76,7 @@
                     <span class="label label-success radius" th:if="${station.station_state == 1}" th:value="${station.station_state}">启用</span>
                     <span class="label label-defaunt radius" th:if="${station.station_state == 5}" th:value="${station.station_state}">禁用</span>
                 </td>
-                <td class="td-manage"><a style="text-decoration:none" id="stop"  href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="station_upd('角色编辑','/stationController/updStationInfo/{station.station_id}}.html','','1')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> </td>
+                <td class="td-manage"><a style="text-decoration:none" id="stop"  href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" class="xiugai" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> </td>
             </tr>
             </tbody>
         </table>
@@ -116,9 +116,13 @@
         layer_show(title,url,w,h);
     }
     /*用户-查看*/
-    function station_upd(title,url,id,w,h){
-        layer_show(title,url,w,h);
-    }
+    $(function () {
+        $(document).on('click','.xiugai',function () {
+            var station_id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().html();
+            layer_show(null,"/stationController/updStationInfo?station_id="+station_id,"","510");
+
+        })
+    })
 
     /*用户-停用*/
     $(function () {

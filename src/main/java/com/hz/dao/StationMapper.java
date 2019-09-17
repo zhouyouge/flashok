@@ -38,7 +38,7 @@ public interface StationMapper {
      * @return
      * @throws Exception
      */
-    public int addStation(FoStation station) throws Exception;
+    public int addStation(@Param("station") FoStation station) throws Exception;
 
     public int updState(@Param("station_id") int station_id,
                         @Param("station_state") Integer station_state)throws Exception;
