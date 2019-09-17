@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.dao.StationMapper">
+    <sql id="station">
+        station_id,station_code,station_name,station_cost,station_service,state_dcprice,state_acprice,station_state
+    </sql>
+
+    <sql id="wherestation">
+        <where>
+            <if test="station_name!=null">
+                station_name like concat('%',#{station_name},'%')
+            </if>
+            <if test="station_state!=null">
+                and station_state=#{station_state}
+            </if>
+        </where>
+    </sql>
+    <select id="getFoStationList" resultType="FoStation">
+        select <include refid="station"/> from fo_station <include refid="wherestation"/> limit #{pagecurr},#{pagesize}
+    </select>
+    <select id="getStationCount" resultType="int">
+        select count(1) from fo_station <include refid="wherestation"/>
+    </select>
+    <select id="getStationrById" parameterType="Long" resultType="FoStation">
+        select <include refid="station"/> from fo_station a  where a.station_id=#{station_id}
+    </select>
+    <update id="updStation">
+        update fo_station
+        <set>
+            <if test="station.station_cost!=0.0">
+                station_cost=#{station.station_cost},
+            </if>
+            <if test="station.station_service!=0.0">
+                station_service=#{station.station_service},
+            </if>
+            <if test="station.state_dcprice!=0.0">
+                state_dcprice=#{station.state_dcprice},
+            </if>
+            <if test="station.state_acprice!=0.0">
+                state_acprice=#{station.state_acprice},
+            </if>
+            <if test="station.station_state!=null">
+                station_state=#{station.station_state},
+            </if>
+        </set>
+        where station_id=#{station.station_id}
+    </update>
+
+    <!--添加电站-->
+    <insert id="addStation" parameterType="FoStation">
+        insert into fo_station
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="station_code!=null">
+                station_code,
+            </if>
+            <if test="station_name!=null">
+                station_name,
+            </if>
+            <if test="station_cost!=0">
+                station_cost,
+            </if>
+            <if test="station_service!=0">
+                station_service,
+            </if>
+            <if test="state_dcprice!=0">
+                state_dcprice,
+            </if>
+            <if test="state_acprice!=0">
+                state_acprice,
+            </if>
+            <if test="station_state!=null">
+                station_state,
+            </if>
+        </trim> values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+
+            <if test="station_code!=null">
+                #{station_code},
+            </if>
+            <if test="station_name!=null">
+                #{station_name},
+            </if>
+            <if test="station_cost!=0">
+                #{station_cost},
+            </if>
+            <if test="station_service!=0">
+                #{station_service},
+            </if>
+            <if test="state_dcprice!=0">
+                #{state_dcprice},
+            </if>
+            <if test="state_acprice!=0">
+                #{state_acprice},
+            </if>
+            <if test="station_state!=null">
+                #{station_state},
+            </if>
+        </trim>
+    </insert>
+    <update id="updState">
+        update fo_station set station_state = #{station_state} where station_id = #{station_id}
+    </update>
+
+</mapper>

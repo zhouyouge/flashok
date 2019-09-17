@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <link rel="stylesheet" type="text/css" th:href="@{/index/static/h-ui/css/H-ui.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/index/static/h-ui.admin/css/H-ui.admin.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/index/lib/Hui-iconfont/1.0.8/iconfont.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/index/static/h-ui.admin/skin/default/skin.css}" id="skin" />
+    <link rel="stylesheet" type="text/css" th:href="@{/index/static/h-ui.admin/css/style.css}" />
+
+    <title>电桩状态</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 电桩管理 <span class="c-gray en">&gt;</span> 电桩状态 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <div class="text-c">
+        <form class="Huiform" method="post" action="" target="_self">
+            <input type="text" placeholder="分类名称" value="" class="input-text" style="width:120px">
+            <span class="btn-upload form-group">
+                <input class="input-text upload-url" type="text" name="uploadfile-2" id="uploadfile-2" readonly style="width:200px">
+
+			</span>
+            <span class="select-box" style="width:150px">
+                <select class="select" name="brandclass" size="1">
+                    <option value="1" selected>直流式</option>
+                    <option value="0">交流式</option>
+                </select>
+			</span>
+            <button type="button" class="btn btn-success" id="" name="" onClick="picture_colume_add(this);"><i class="Hui-iconfont">&#xe600;</i> 添加</button>
+        </form>
+    </div>
+
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="25">ID</th>
+                <th width="70">充电桩编号</th>
+                <th width="80">充电桩类型</th>
+                <th width="80">额定电压(V)</th>
+                <th width="80">额定电流(A)</th>
+                <th width="80">充电方式</th>
+                <th width="80">电站名称</th>
+                <th width="80">电站状态</th>
+                <th width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-c" th:each="pile:${pileList}" >
+                <td><input type="checkbox" name="" value=""></td>
+                <td th:text="${pile.pile_id}"></td>
+                <td th:text="${pile.pile_code}"></td>
+                <td th:text="${pile.piletype.piletype_name}"></td>
+                <td th:text="${pile.parameter.parameter_voltage}"></td>
+                <td th:text="${pile.parameter.parameter_current}"></td>
+                <td th:text="${pile.parameter.parameter_electricity}"></td>
+                <td th:text="${pile.station.station_name}"></td>
+                <td >
+                    <span th:if="${pile.pile_state}==1">空闲</span>
+                    <span th:if="${pile.pile_state}==2">使用中</span>
+                    <span th:if="${pile.pile_state}==3">离线</span>
+                    <span th:if="${pile.pile_state}==4">维护</span>
+                    <span th:if="${pile.pile_state}==5">被删除</span>
+                </td>
+                <td class="f-14 product-brand-manage">
+                    <a style="text-decoration:none" onClick="product_brand_edit('品牌编辑','codeing.html','1')" th:href="@{'/pilecontroller/updPileInfo/'+${pile_id}}" title="编辑">
+                        <i class="Hui-iconfont">&#xe6df;</i>
+                    </a>
+                    <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除">
+                        <i class="Hui-iconfont">&#xe6e2;</i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span>
+
+
+
+
+        <span class="r"> 共有数据：<strong> 54 </strong> 条</span>
+    </div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="index/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="index/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="index/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="index/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="index/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="index/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="index/lib/laypage/1.2/laypage.js"></script>
+
+</body>
+</html>

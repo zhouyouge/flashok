@@ -9,7 +9,9 @@ public class FoPile {
   private long piletype_id;//电桩类型ID
   private String pile_creationtime;//创建时间
   private String pile_state;//电桩运行状态(1.空闲 2.运行中 3.离线4.维护5 被删除)
-
+  private FoParameter parameter;//电桩参数对象
+  private FoPiletype piletype;//电桩类型对象
+  private FoStation station;//电站对象
 
   public long getPile_id() {
     return pile_id;
@@ -57,5 +59,29 @@ public class FoPile {
 
   public void setPile_state(String pile_state) {
     this.pile_state = pile_state;
+  }
+
+  public FoParameter getParameter() {
+    return parameter;
+  }
+
+  public void setParameter(FoParameter parameter) {
+    this.parameter = parameter;
+  }
+
+  public FoPiletype getPiletype() {
+    return piletype;
+  }
+
+  public void setPiletype(FoPiletype piletype) {
+    this.piletype = piletype;
+  }
+
+  public FoStation getStation() {
+    return station;
+  }
+
+  public void setStation(FoStation station) {
+    this.station = station;
   }
 }

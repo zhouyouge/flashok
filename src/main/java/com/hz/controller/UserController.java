@@ -3,7 +3,7 @@ package com.hz.controller;
 import com.hz.pojo.FoUser;
 import com.hz.pojo.Page;
 import com.hz.service.UserService;
-import net.sf.json.JSONObject;
+import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
