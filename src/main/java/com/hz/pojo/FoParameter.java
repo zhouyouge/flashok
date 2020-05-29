@@ -10,6 +10,15 @@ public class FoParameter {
   private String parameter_capacity;//电桩额定功率
   private String parameter_electricity;//电桩电流类型
   private String parameter_creationtime;//创建时间
+  private FoPiletype piletype;//电站类型对象
+
+  public FoPiletype getPiletype() {
+    return piletype;
+  }
+
+  public void setPiletype(FoPiletype piletype) {
+    this.piletype = piletype;
+  }
 
   public long getParameter_id() {
     return parameter_id;

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.dao.AdminMapper">
+    <sql id="cadmin">
+       admin_id,admin_name,admin_password,admin_state,admin_addtime,admin_pid,admin_data,admin_remarks,admin_email
+    </sql>
+    <sql id="whereadmin">
+        <where>
+            <if test="admin_name!=null">
+                admin_name like concat('%',#{admin_name},'%')
+            </if>
+            <if test="admin_state!=null">
+                and admin_state=#{admin_state}
+            </if>
+        </where>
+    </sql>
+    <select id="getAdminList" resultType="FoAdmin">
+        select <include refid="cadmin"/> from fo_admin
+        <include refid="whereadmin"/>
+        limit #{pagecurr},#{pagesize}
+    </select>
+    <select id="getAdminCount" resultType="int">
+        select count(1) from fo_admin
+        <include refid="whereadmin"/>
+    </select>
+    <insert id="insertAdmin" parameterType="FoAdmin">
+        insert into fo_admin(admin_name,admin_password,admin_addtime,admin_remarks,admin_email,admin_pid)values(#{admin_name},#{admin_password},#{admin_addtime},#{admin_remarks},#{admin_email},#{admin_pid})
+    </insert>
+    <delete id="deleteAdmin" parameterType="FoAdmin">
+        delete from fo_admin where admin_id = #{admin_id}
+    </delete>
+    <delete id="deleteAdmins">
+        delete from fo_admin where admin_id in
+        <foreach item="val" collection="array" open="(" separator="," close=")">
+            #{val}
+        </foreach>
+    </delete>
+</mapper>

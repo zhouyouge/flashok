@@ -36,8 +36,13 @@ public class StatisticsServiceImpl implements StatisticsService {
         return statisticsMapper.insertRole(foRole);
     }
 
+    /**
+     * service 层实现类
+     * @param array
+     * @return
+     */
     @Override
-    public int deleteRoles(String[] array) throws Exception {
+    public int deleteRoles(String[] array)  {
         return statisticsMapper.deleteRoles(array);
     }
 

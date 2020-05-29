@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.dao.CountAllMapper">
+    <select id="getStationAll" resultType="int">
+        SELECT COUNT(1) FROM fo_station
+    </select>
+    <select id="getgetStationActive" resultType="int">
+        SELECT COUNT(1) FROM fo_station WHERE station_state = 1
+    </select>
+    <select id="getgetStationBuild" resultType="int">
+        SELECT COUNT(1) FROM fo_station WHERE station_state = 2
+    </select>
+    <select id="getPileAll" resultType="int">
+        SELECT COUNT(1) FROM fo_pile
+    </select>
+    <select id="getPileActive" resultType="int">
+        SELECT COUNT(1) FROM fo_pile WHERE pile_state =1
+    </select>
+    <select id="getPileRun" resultType="int">
+        SELECT COUNT(1) FROM fo_pile WHERE pile_state =2
+    </select>
+    <select id="getPileOut" resultType="int">
+        SELECT COUNT(1) FROM fo_pile WHERE pile_state =3
+    </select>
+    <select id="getPileRepair" resultType="int">
+        SELECT COUNT(1) FROM fo_pile WHERE pile_state =4
+    </select>
+    <select id="getPayrecordMoney" resultType="double">
+        select sum(payrecord_money) from fo_payrecord
+    </select>
+    <select id="getUserAll" resultType="int">
+        select count(1) from fo_user
+    </select>
+</mapper>

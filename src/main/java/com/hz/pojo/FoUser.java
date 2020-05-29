@@ -4,6 +4,7 @@ package com.hz.pojo;
 public class FoUser {
 
   private long user_id;//用户ID
+  private String user_openid; //用户openid
   private String user_wechat_name;//用户微信号
   private String user_wechat_iocn;//用户头像
   private int user_sex;//用户性别
@@ -16,6 +17,15 @@ public class FoUser {
   private int user_integral; //用户积分
   private String user_email;//用户邮箱
   private String user_beizhu;//用户备注
+
+
+  public String getUser_openid() {
+    return user_openid;
+  }
+
+  public void setUser_openid(String user_openid) {
+    this.user_openid = user_openid;
+  }
 
   public String getUser_beizhu() {
     return user_beizhu;

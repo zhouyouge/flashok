@@ -14,6 +14,15 @@ public class FoAdmin {
   private String admin_remarks;//管理员备注
   private String admin_email;//管理员邮箱
   private FoRole foRole;  //角色
+  private FoState state;//区域对象集合
+
+  public FoState getState() {
+    return state;
+  }
+
+  public void setState(FoState state) {
+    this.state = state;
+  }
 
   public FoRole getFoRole() {
     return foRole;

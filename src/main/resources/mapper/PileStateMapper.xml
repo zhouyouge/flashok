@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.dao.PileStateMapper">
+<resultMap id="pileMap" type="FoPile">
+    <id property="pile_id" column="pile_id"/>
+    <result property="pile_code" column="pile_code"/>
+    <result property="pile_creationtime" column="pile_creationtime"/>
+    <result property="pile_state" column="pile_state"/>
+    <association property="piletype" javaType="FoPiletype">
+        <id property="piletype_id" column="piletype_id"/>
+        <result property="piletype_name" column="piletype_name"/>
+    </association>
+    <association property="station" javaType="FoStation">
+        <id property="station_id" column="station_id"/>
+        <result property="station_name" column="station_name"/>
+    </association>
+</resultMap>
+<sql id="pileWhere">
+    <where>
+        <if test="pile_code!=null and pile_code!=''">
+            pile_code LIKE CONCAT('%',#{pile_code},'%')
+        </if>
+        <if test="pile_state!=null and pile_state!=''">
+            and pile_state LIKE CONCAT('%',#{pile_state},'%')
+        </if>
+    </where>
+</sql>
+<select id="getFoPileList" resultMap="pileMap">
+    SELECT pile_id,pile_code,station_name,piletype_name,pile_creationtime,pile_state
+    FROM fo_pile a LEFT JOIN fo_piletype b on a.piletype_id = b.piletype_id
+    LEFT JOIN fo_station c on a.station_id = c.station_id <include refid="pileWhere"/> limit #{pagecurr},#{pagesize}
+</select>
+
+<select id="getPileCount" resultType="int">
+    SELECT count(1) FROM fo_pile <include refid="pileWhere"/>
+</select>
+
+<select id="getPiletype" resultType="FoPiletype">
+    select piletype_name,piletype_id from fo_piletype
+</select>
+
+<select id="getStation" resultType="FoStation" >
+    select station_id,station_name from fo_station
+</select>
+<select id="getPileById" parameterType="long" resultMap="pileMap">
+    select pile_id,pile_code,a.piletype_id,a.station_id,pile_state,station_name,piletype_name from fo_pile a LEFT JOIN fo_piletype b on a.piletype_id = b.piletype_id
+    LEFT JOIN fo_station c on a.station_id = c.station_id  where pile_id = #{pile_id}
+</select>
+
+<insert id="addPileState">
+    insert into fo_pile (pile_code,piletype_id,pile_state,station_id)
+        values (#{pile.pile_code},#{pile.piletype_id},#{pile.pile_state},#{pile.station_id})
+</insert>
+
+<update id="updPileState">
+    update fo_pile
+    <set>
+        <if test="pile.pile_code!=null">
+            pile_code=#{pile.pile_code},
+        </if>
+        <if test="pile.piletype_id!=0">
+            piletype_id=#{pile.piletype_id},
+        </if>
+        <if test="pile.station_id!=0">
+            station_id=#{pile.station_id},
+        </if>
+        <if test="pile.pile_state!=0">
+            pile_state=#{pile.pile_state},
+        </if>
+    </set>
+    where pile_id=#{pile.pile_id}
+</update>
+</mapper>

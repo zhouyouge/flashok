@@ -11,5 +11,12 @@ public interface StatisticsMapper {
     public int getRoleCount()throws Exception;
     public int deleteRole(FoRole foRole)throws Exception;
     public int insertRole(FoRole foRole)throws Exception;
-    public int deleteRoles(String[] array)throws Exception;
+
+    /**
+     * 批量删除
+     * @param array
+     * @return
+     *
+     */
+    public int deleteRoles(String[] array);
 }

@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <link rel="stylesheet" type="text/css" href="/index/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/index/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/index/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/index/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/index/static/h-ui.admin/css/style.css" />
+
+    <title>状态管理</title>
+</head>
+<body>
+<style>
+    .fanye{
+        float: right;
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+    .btn-top {
+        background-color: rgb(94,185,94);
+        border-radius: 5px;
+    }
+    .btn-down {
+        background-color: rgb(94,185,94);
+        border-radius: 5px;
+    }
+
+</style>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 电桩管理 <span class="c-gray en">&gt;</span> 电桩参数类型 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <form class="Huiform" method="post" th:action="@{/pileTypeController/getPileType}" >
+        电桩名称:<input type="text" th:value="${piletype_name}"
+                    name="piletype_name"  placeholder="支持模糊查询" class="input-text" style="width:320px"/>
+
+        <input type="submit" class="btn btn-success" value="查询">
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="type_add('添加电桩类型','/pile-type-add.html','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加电桩类型</a></span> <span class="r">共有数据：<strong th:text="${page.totalCount}"></strong> 条</span> </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-hover table-bg">
+            <thead>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="25">序号</th>
+                <th width="70">电桩类型名称</th>
+                <th width="80">创建时间</th>
+                <th width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-c" th:each="piletype:${pileTypeList}">
+                <td><input type="checkbox" value="1" name="" ></td>
+                <td th:text="${piletype.piletype_id}"></td>
+                <td th:text="${piletype.piletype_name}"></td>
+                <td th:text="${piletype.piletype_createtime}"></td>
+                <td class="td-manage"><a title="编辑" href="javascript:;" class="xiugai" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="fanye">
+            <div class="fanye">
+                <a class="btn btn-success" th:href="@{/pileTypeController/getPileType(currpageno=1,piletype_name=${piletype_name})}" >首页</a>
+                <a class="btn btn-top" th:href="@{/pileTypeController/getPileType(currpageno=${page.currPageNo}-1)}" th:if="${page.currPageNo}>1">上一页</a><span>第<strong th:text="${page.currPageNo}"></strong>页</span>
+                <a class="btn btn-down" th:href="@{/pileTypeController/getPileType(currpageno=${page.currPageNo}+1)}" th:if="${page.currPageNo<page.totalPageCount}">下一页</a>
+                <a class="btn btn-success" th:href="@{/pileTypeController/getPileType(currpageno=${page.totalPageCount},piletype_name=${piletype_name})}" >尾页</a><a>共有： <strong><span th:text="${page.totalPageCount}"></span></strong> 页</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/index/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/index/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/index/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/index/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/index/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/index/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/index/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+    // $(function () {
+    //     $('.table-sort').dataTable({
+    //         "bStateSave": true,//状态保存
+    //         "aoColumnDefs": [
+    //             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+    //             {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+    //         ]
+    //     });
+    // })
+
+    /*用户-添加*/
+    function type_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-查看*/
+    $(function () {
+        $(document).on('click','.xiugai',function () {
+            var piletype_id = $(this).parent().prev().prev().prev().html();
+            layer_show(null,"/pileTypeController/updPiletypeInfo?piletype_id="+piletype_id,"","510");
+
+        });
+    });
+
+
+
+</script>
+</body>
+</html>

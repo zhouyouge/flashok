@@ -16,7 +16,15 @@ public class FoStation {
   private String subscribe_rule;//预约收费标准
   private String station_createtime;//创建时间
   private Integer station_state;//电站状态(1正常，2在建，5停运)
+  private FoState state;
 
+  public FoState getState() {
+    return state;
+  }
+
+  public void setState(FoState state) {
+    this.state = state;
+  }
 
   public int getStation_id() {
     return station_id;

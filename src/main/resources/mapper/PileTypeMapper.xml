@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.dao.PileTypeMapper">
+    <sql id="wherestation">
+        <where>
+            <if test="piletype_name!=null">
+                piletype_name like concat('%',#{piletype_name},'%')
+            </if>
+        </where>
+    </sql>
+    <select id="getPileTypeList" resultType="FoPiletype">
+        select piletype_id,piletype_name,piletype_createtime from fo_piletype <include refid="wherestation"/>  limit #{pagecurr},#{pagesize}
+    </select>
+    <select id="getCount" resultType="int">
+        select count(1) from fo_piletype <include refid="wherestation"/>
+    </select>
+    <select id="getPileTypeById" parameterType="long" resultType="FoPiletype">
+        select piletype_id,piletype_name,piletype_createtime from fo_piletype where piletype_id=#{piletype_id};
+    </select>
+    <insert id="addPiletype">
+        insert into fo_piletype
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="piletype.piletype_name!=null">
+                piletype_name,
+            </if>
+            <if test="piletype.piletype_createtime!=null">
+                piletype_createtime,
+            </if>
+        </trim> values
+        <trim prefix="(" suffixOverrides="," suffix=")">
+
+            <if test="piletype.piletype_name!=null">
+                #{piletype.piletype_name},
+            </if>
+            <if test="piletype.piletype_createtime!=null">
+                #{piletype.piletype_createtime},
+            </if>
+
+        </trim>
+    </insert>
+    <update id="updPileType">
+        update fo_piletype
+        <set>
+            <if test="piletype.piletype_name!=null">
+                piletype_name=#{piletype.piletype_name},
+            </if>
+            <if test="piletype.piletype_createtime!=null">
+                piletype_createtime = #{piletype.piletype_createtime},
+            </if>
+        </set>
+        where piletype_id=#{piletype.piletype_id};
+    </update>
+</mapper>

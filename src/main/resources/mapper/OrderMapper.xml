@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.dao.OrderMapper">
+    <sql id="ordercurr">
+        order_id,user_wechat_name,user_openid,order_money,station_name,order_starttime,order_endtime,
+        order_reason,order_cost,order_service,order_time,pile_code,order_state
+    </sql>
+
+    <resultMap id="FoOrder" type="FoOrder">
+        <result property="order_id" column="order_id"></result>
+        <result property="order_starttime" column="order_starttime"></result>
+        <result property="order_endtime" column="order_endtime"></result>
+        <result property="order_time" column="order_time"></result>
+        <result property="order_service" column="order_service"></result>
+        <result property="order_cost" column="order_cost"></result>
+        <result property="order_money" column="order_money"></result>
+        <result property="order_state" column="order_state"></result>
+        <association property="foUser" javaType="FoUser">
+            <result property="user_wechat_name" column="user_wechat_name"></result>
+            <result property="user_openid" column="user_openid"></result>
+        </association>
+        <association property="foPile" javaType="FoPile">
+            <result property="pile_code" column="pile_code"></result>
+            <association property="station" javaType="FoStation">
+                <result property="station_name" column="station_name"></result>
+            </association>
+        </association>
+    </resultMap>
+    <select id="getOrderList" resultMap="FoOrder">
+        select <include refid="ordercurr"/> from fo_order a left join fo_user b on a.user_id = b.user_id
+        left join fo_pile c on a.pile_id = c.pile_id left join fo_station d on c.station_id = d.station_id
+    </select>
+
+    <select id="getOrderListByOpenid" resultMap="FoOrder">
+        select <include refid="ordercurr"/> from fo_order a
+        left join fo_user b on a.user_id = b.user_id
+        left join fo_pile c on a.pile_id = c.pile_id
+        left join fo_station d on c.station_id = d.station_id
+        where b.user_openid = #{user_openid}
+    </select>
+
+    <sql id="addorder">
+        user_id,order_money,order_starttime,order_endtime,
+        order_cost,order_time,pile_id,order_service
+    </sql>
+    <insert id="addOrder" parameterType="FoOrder">
+        insert into fo_order (order_money,order_starttime,order_endtime,order_cost,order_time,order_service,pile_id,user_id)
+SELECT #{order_money},#{order_starttime},#{order_endtime},#{order_cost},#{order_time},#{order_service},
+(SELECT pile_id FROM fo_pile WHERE pile_code = #{foPile.pile_code}),
+(SELECT user_id FROM fo_user WHERE user_openid = #{foUser.user_openid})
+    </insert>
+
+
+
+    <sql id="stationcurr">
+        pile_id,pile_electric_type,
+        station_code,station_longitude,station_latitude,
+        station_name,station_cost,station_service,state_dcprice,state_acprice,station_state
+    </sql>
+    <resultMap id="FoPile" type="FoPile">
+        <result property="pile_id" column="pile_id"></result>
+        <result property="pile_electric_type" column="pile_electric_type"></result>
+        <association property="station" javaType="FoStation">
+            <result property="station_cost" column="station_cost"></result>
+            <result property="station_service" column="station_service"></result>
+            <result property="station_name" column="station_name"></result>
+            <result property="state_dcprice" column="state_dcprice"></result>
+            <result property="state_acprice" column="state_acprice"></result>
+        </association>
+    </resultMap>
+    <select id="getOrderCost" resultMap="FoPile">
+        select <include refid="stationcurr"/>  from fo_pile
+        a left join fo_station b on a.station_id = b.station_id
+        where a.pile_code = #{pile_code}
+    </select>
+
+    <select id="getUserOrderList" parameterType="String" resultMap="FoOrder">
+        select <include refid="ordercurr"/> from fo_order a
+        left join fo_user b on a.user_id = b.user_id
+        left join fo_pile c on a.pile_id = c.pile_id
+        left join fo_station d on c.station_id = d.station_id
+        where user_openid = #{user_openid}
+    </select>
+
+
+    <update id="updateOrderState" parameterType="FoOrder">
+        update fo_order set order_state = 1,order_endtime = #{order_endtime},order_time = #{order_time},
+         order_money = #{order_money},order_service = #{order_service},order_cost = #{order_cost} where order_starttime = #{order_starttime}
+    </update>
+</mapper>

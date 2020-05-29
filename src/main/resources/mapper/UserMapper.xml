@@ -4,31 +4,38 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hz.dao.UserMapper">
     <sql id="cuser">
-        user_id,user_wechat_name,user_wechat_iocn,user_sex,user_idcard,
+        user_id,user_openid,user_wechat_name,user_wechat_iocn,user_sex,user_idcard,
         user_phone,user_money,user_createtime,user_state,
         user_addr,user_integral,user_email
     </sql>
     <sql id="whereuser">
-        <where>
             <if test="user_wechat_name!=null">
-                user_wechat_name like concat('%',#{user_wechat_name},'%')
+                and user_wechat_name like concat('%',#{user_wechat_name},'%')
             </if>
             <if test="user_state!=null">
                 and user_state = #{user_state}
             </if>
-        </where>
     </sql>
     <select id="getUserList" resultType="FoUser">
-        select <include refid="cuser"/> from fo_user <include refid="whereuser"/>
+        select <include refid="cuser"/> from fo_user
+         where user_createtime BETWEEN #{datemin} AND #{datemax}
+          <include refid="whereuser"/>
+           order by user_id desc
         limit #{pagecurr},#{pagesize}
     </select>
     <select id="getUserCount" resultType="int">
-        select count(1) from fo_user <include refid="whereuser"/>
+        select count(1) from fo_user where user_createtime BETWEEN #{datemin} AND #{datemax}  <include refid="whereuser"/> order by user_id desc
     </select>
 
     <insert id="addUser" parameterType="FoUser">
         insert into fo_user
         <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="user_wechat_iocn!=null">
+                user_wechat_iocn,
+            </if>
+            <if test="user_openid!=null">
+                user_openid,
+            </if>
             <if test="user_wechat_name!=null">
                 user_wechat_name,
             </if>
@@ -52,6 +59,12 @@
             </if>
         </trim> values
         <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="user_wechat_iocn!=null">
+                #{user_wechat_iocn},
+            </if>
+            <if test="user_openid!=null">
+                #{user_openid},
+            </if>
             <if test="user_wechat_name!=null">
                 #{user_wechat_name},
             </if>
@@ -76,11 +89,24 @@
         </trim>
     </insert>
 
+
     <update id="updatState">
-        update fo_user set user_state = #{user_state} where user_id = #{user_id}
+        update fo_user set user_state = #{user_state}
+        where user_id = #{user_id}
     </update>
 
     <select id="userShow" resultType="FoUser">
-        select <include refid="cuser"/> from fo_user where user_id = #{user_id}
+        select <include refid="cuser"/> from fo_user
+         where user_id = #{user_id}
     </select>
+
+    <select id="getUserByOpenId" resultType="FoUser">
+        select <include refid="cuser"/> from fo_user
+        where user_openid = #{user_openid}
+    </select>
+
+    <update id="updateUserMoney">
+         update fo_user set user_money = #{user_money}
+          where user_openid = #{user_openid}
+    </update>
 </mapper>

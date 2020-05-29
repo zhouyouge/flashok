@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.dao.PayRecordMapper">
+    <sql id="cuser">
+        user_id,user_wechat_name,user_wechat_iocn,user_sex,user_idcard,user_email,user_phone,user_addr,user_money,user_state
+    </sql>
+    <sql id="cpayrecord">
+        payrecord_id,payrecord_time,payrecord_money
+    </sql>
+    <sql id="whereuser">
+        <where>
+            <if test="user_wechat_name!=null">
+                user_wechat_name like concat('%',#{user_wechat_name},'%')
+            </if>
+        </where>
+    </sql>
+    <resultMap id="user_payrecord_map" type="FoPayRecord">
+        <id property="payrecord_id" column="payrecord_id"/>
+        <result property="payrecord_time" column="payrecord_time"/>
+        <result property="payrecord_money" column="payrecord_money"/>
+        <association property="foUser" javaType="FoUser">
+            <id property="user_id" column="user_id"/>
+            <result property="user_wechat_name" column="user_wechat_name"/>
+            <result property="user_sex" column="user_sex"/>
+            <result property="user_idcard" column="user_idcard"/>
+            <result property="user_email" column="user_email"/>
+            <result property="user_phone" column="user_phone"/>
+            <result property="user_addr" column="user_addr"/>
+            <result property="user_money" column="user_money"/>
+            <result property="user_state" column="user_state"/>
+        </association>
+    </resultMap>
+    <select id="getFoPayrecordList" resultMap="user_payrecord_map">
+        select <include refid="cuser"/>,<include refid="cpayrecord"/> from fo_payrecord a left join fo_user b on a.payrecord_user_id = b.user_id
+        <include refid="whereuser"/>
+        limit #{pagecurr},#{pagesize}
+    </select>
+    <select id="getPayRecordCount" resultType="int">
+        select count(1) from fo_payrecord
+        <include refid="whereuser"/>
+    </select>
+
+
+
+    <insert id="addPayRecord" parameterType="FoPayrecord">
+        insert into fo_payrecord (payrecord_time,payrecord_money,payrecord_user_id)
+        select #{payrecord_time},#{payrecord_money},
+        (select user_id from fo_user where user_openid = #{foUser.user_openid})
+    </insert>
+</mapper>

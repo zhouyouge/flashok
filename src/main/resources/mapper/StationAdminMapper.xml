@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.dao.StationAdminMapper">
+    <sql id="stationAdmin">
+        station_id,station_code,station_name,state_name,admin_name,admin_state,admin_addtime,b.state_id
+    </sql>
+    <sql id="wherestation">
+        <where>
+            <if test="station_name!=null">
+                station_name like concat('%',#{station_name},'%')
+            </if>
+        </where>
+    </sql>
+    <resultMap id="mapFoState" type="FoAdmin">
+        <id property="admin_id" column="admin_id"></id>
+        <result property="admin_name" column="admin_name"></result>
+        <result property="admin_state" column="admin_state"></result>
+        <result property="admin_addtime" column="admin_addtime"></result>
+
+        <association  property="state" javaType="FoState">
+            <id property="state_id" column="state_id"></id>
+            <result property="state_name" column="state_name"></result>
+            <association  property="station" javaType="FoStation">
+                <id property="station_id" column="station_id" ></id>
+                <result property="station_code" column="station_code"></result>
+                <result property="station_name" column="station_name"></result>
+            </association >
+        </association >
+    </resultMap>
+    <select id="getStationAdminList" resultMap="mapFoState">
+        SELECT <include refid="stationAdmin"/> from fo_station a LEFT JOIN fo_state b on a.state_id = b.state_id
+        LEFT JOIN fo_admin c on b.admin_id = c.admin_id <include refid="wherestation"/> order by station_id limit #{pagecurr},#{pagesize}
+    </select>
+    <select id="getStationCount" resultType="int">
+        select count(1) from fo_station <include refid="wherestation"/>
+    </select>
+    <select id="getAdminByID" parameterType="long" resultType="FoAdmin">
+        select admin_name,admin_id from fo_admin where admin_id =#{admin_id}
+    </select>
+    <select id="getAdminStateById" parameterType="long" resultType="FoState">
+        SELECT state_name,state_id,admin_id from fo_state where  state_id = #{state_id}
+    </select>
+    <update id="updAdminState">
+        update fo_state
+        <set>
+            <if test="admin_id!=0">
+                admin_id = #{admin_id}
+            </if>
+        </set>
+        where state_id in
+        <foreach item="val" collection="state_id"
+                 open="(" separator="," close=")">
+            #{val}
+        </foreach>
+    </update>
+    <update id="updStateAdmin">
+        update fo_admin set admin_state = #{admin_state} where admin_name = #{admin_name}
+    </update>
+
+
+
+
+
+</mapper>

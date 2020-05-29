@@ -1,0 +1,175 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--<link rel="Bookmark" href="/favicon.ico" >-->
+    <!--<link rel="Shortcut Icon" href="/favicon.ico" />-->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/index/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/index/lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/index/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/index/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/index/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/index/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/index/static/h-ui.admin/css/style.css" />
+    <!--/meta 作为公共模版分离出去-->
+
+    <title>新建网站角色 - 管理员管理 - H-ui.admin v3.1</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+</head>
+<body>
+<article class="page-container">
+    <form  class="form form-horizontal" id="form-admin-role-add">
+        <div class="row cl">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属区域：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box" style="width:150px;">
+                        <select class="select" name="state_id" size="1" id="state_id">
+                            <option value="0">请选择</option>
+                            <th th:each="state:${states}">
+                                <option th:value="${state.state_id}" th:text="${state.state_name}"></option>
+                            </th>
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>电站名称：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="" id="station_name" name="station_name">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>电站编号：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="" id="station_code"  name="station_code">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>成本费用 ：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="" id="station_cost"  name="station_cost">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>服务费：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="" id="station_service"  name="station_service">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>直流充电电费：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="" id="state_dcprice"  name="state_dcprice">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>交流充电电费：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="" id="state_acprice"  name="state_acprice">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>电站状态：</label>
+                <div class="formControls col-xs-8 col-sm-9" border="1">
+                    <dt class="radio-box">
+                        <label class=""><input type="radio" value="1" name="station_state" id="station_state-1" checked>空闲</label>
+                    </dt>
+                    <dt class="radio-box">
+                        <label class=""><input type="radio" value="2" name="station_state" id="station_state-2">在建</label>
+                    </dt>
+                    <dt class="radio-box">
+                        <label class=""><input type="radio" value="5" name="station_state" id="station_state-3">停运</label>
+                    </dt>
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <button class="btn btn-success radius" id="admin-role-save" name="admin-role-save" ><i class="icon-ok"></i>确定</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/index/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/index/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/index/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/index/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/index/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/index/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/index/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#form-admin-role-add").validate({
+            rules:{
+                station_code:{
+                    required:true,
+                },
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                $(form).ajaxSubmit();
+                // var index = parent.layer.getFrameIndex(window.name);
+                // parent.layer.close(index);
+            }
+        });
+
+        $("#station_code").blur(function () {
+            var text = $("#station_code").val();
+            if (text == ""||text == " ") {
+                layer.msg('带*部分不能为空！',{icon:2,time:1000});
+                $("#station_code").css("background-color","red");
+            }else{
+                $("#station_code").css("background-color","whilt");
+            }
+        })
+        $("#admin-role-save").click(function () {
+            var station_code = $("#station_code").val();
+            var state_id = $("#state_id").val();
+            var station_name = $("#station_name").val();
+            var station_cost = $("#station_cost").val();
+            var station_service = $("#station_service").val();
+            var state_dcprice = $("#state_dcprice").val();
+            var state_acprice = $("#state_acprice").val();
+            var station_state = $("input[name=station_state]:checked").val();
+            var adata = {state_id:state_id,station_code:station_code,station_name:station_name,station_cost:station_cost,station_service:station_service,state_dcprice:state_dcprice,state_acprice:state_acprice,station_state:station_state};
+            var data = JSON.stringify(adata);
+            $.ajax({
+                url:"/stationController/addStation",
+                data:data,
+                type:"post",
+                contentType : "application/json;charset=utf-8",
+                success:function (res) {
+                    if (res.code ==1){
+                        layer.msg("添加成功！",{icon:1,time:1000},function (){
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        })
+                    }else {
+                        layer.msg("添加失败！",{icon:2,time:1000});
+                    }
+                }
+            })
+        })
+
+    });
+
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

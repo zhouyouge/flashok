@@ -5,7 +5,6 @@ public class FoOrder {
     private long user_id;// 用户ID
     private double order_money;//消费金额
     private long order_power;//充电量
-    private long station_id;//电站ID
     private String order_starttime;//开始时间
     private String order_endtime;//结束时间
     private int order_reason;//结束原因 0到时结束 1.用户结束 2.未结束订单
@@ -13,7 +12,62 @@ public class FoOrder {
     private double order_service;//服务费
     private String order_time;//充电时长
     private long pile_id;//电桩ID
+    private FoUser foUser;//用户
+    private FoStation foStation; //电站
+    private FoPile foPile; //电桩
+    private int order_state;//订单状态
 
+//    private String user_openid;//openid
+//    private String pile_code;//电桩编号
+//
+//    public String getUser_openid() {
+//        return user_openid;
+//    }
+//
+//    public void setUser_openid(String user_openid) {
+//        this.user_openid = user_openid;
+//    }
+//
+//    public String getPile_code() {
+//        return pile_code;
+//    }
+//
+//    public void setPile_code(String pile_code) {
+//        this.pile_code = pile_code;
+//    }
+
+
+    public int getOrder_state() {
+        return order_state;
+    }
+
+    public void setOrder_state(int order_state) {
+        this.order_state = order_state;
+    }
+
+    public FoUser getFoUser() {
+        return foUser;
+    }
+
+    public void setFoUser(FoUser foUser) {
+        this.foUser = foUser;
+    }
+
+    public FoStation getFoStation() {
+        return foStation;
+    }
+
+    public void setFoStation(FoStation foStation) {
+        this.foStation = foStation;
+    }
+
+    public FoPile getFoPile() {
+        return foPile;
+    }
+
+    public void setFoPile(FoPile foPile) {
+        this.foPile = foPile;
+    }
 
     public long getOrder_id() {
         return order_id;
@@ -45,14 +99,6 @@ public class FoOrder {
 
     public void setOrder_power(long order_power) {
         this.order_power = order_power;
-    }
-
-    public long getStation_id() {
-        return station_id;
-    }
-
-    public void setStation_id(long station_id) {
-        this.station_id = station_id;
     }
 
     public String getOrder_starttime() {

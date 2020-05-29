@@ -7,7 +7,7 @@ public class FoPiletype {
 
   private long piletype_id;//电桩类型ID
   private String piletype_name;//电桩类型名称
-  private java.sql.Timestamp pile_creationtime;//创建时间
+  private String piletype_createtime;//创建时间
 
 
   public long getPiletype_id() {
@@ -26,11 +26,11 @@ public class FoPiletype {
     this.piletype_name = piletype_name;
   }
 
-  public Timestamp getPile_creationtime() {
-    return pile_creationtime;
+  public String getPiletype_createtime() {
+    return piletype_createtime;
   }
 
-  public void setPile_creationtime(Timestamp pile_creationtime) {
-    this.pile_creationtime = pile_creationtime;
+  public void setPiletype_createtime(String piletype_createtime) {
+    this.piletype_createtime = piletype_createtime;
   }
 }

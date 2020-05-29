@@ -6,19 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<!--[if lt IE 9]>
-<script type="text/javascript" src="/index/lib/html5shiv.js"></script>
-<script type="text/javascript" src="/index/lib/respond.min.js"></script>
-<![endif]-->
+
 <link rel="stylesheet" type="text/css" href="/index/static/h-ui/css/H-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="/index/static/h-ui.admin/css/H-ui.admin.css" />
 <link rel="stylesheet" type="text/css" href="/index/lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="/index/static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="/index/static/h-ui.admin/css/style.css" />
-<!--[if IE 6]>
-<script type="text/javascript" src="/index/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
-<script>DD_belatedPNG.fix('*');</script>
-<![endif]-->
+
 <title>角色管理</title>
 </head>
 <style>
@@ -62,38 +56,19 @@
 				<td th:text="${role.role_name}"></td>
 				<!--<td th:text="${admin.admin_name}"></td>-->
 				<td th:text="${role.role_description}"></td>
-				<td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','/admin-role-add.html','1')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+				<td class="f-14"><a title="编辑" href="javascript:;"
+									onclick="admin_role_edit('角色编辑','/admin-role-add.html','1')"
+									style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
 				<a title="删除"  class="ml-5" id="dele" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
-			<!--<tr class="text-c">-->
-				<!--<td><input type="checkbox" value="" name=""></td>-->
-				<!--<td>2</td>-->
-				<!--<td>总编</td>-->
-				<!--<td><a href="#">张三</a></td>-->
-				<!--<td>具有添加、审核、发布、删除内容的权限</td>-->
-				<!--<td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','admin-role-add.html','2')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>-->
-			<!--</tr>-->
-			<!--<tr class="text-c">-->
-				<!--<td><input type="checkbox" value="" name=""></td>-->
-				<!--<td>3</td>-->
-				<!--<td>栏目主辑</td>-->
-				<!--<td><a href="#">李四</a>，<a href="#">王五</a></td>-->
-				<!--<td>只对所在栏目具有添加、审核、发布、删除内容的权限</td>-->
-				<!--<td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','admin-role-add.html','3')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>-->
-			<!--</tr>-->
-			<!--<tr class="text-c">-->
-				<!--<td><input type="checkbox" value="" name=""></td>-->
-				<!--<td>4</td>-->
-				<!--<td>栏目编辑</td>-->
-				<!--<td><a href="#">赵六</a>，<a href="#">钱七</a></td>-->
-				<!--<td>只对所在栏目具有添加、删除草稿等权利。</td>-->
-				<!--<td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','admin-role-add.html','4')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>-->
-			<!--</tr>-->
+
 		</tbody>
 	</table>
     <div class="fanye">
-    <a class="btn btn-top" th:href="@{/statisticsController/getRoleList(currpageno=${page.currPageNo}-1)}" th:if="${page.currPageNo}>1">上一页</a><span>第<strong th:text="${page.currPageNo}"></strong>页</span>
-    <a class="btn btn-down" th:href="@{/statisticsController/getRoleList(currpageno=${page.currPageNo}+1)}" th:if="${page.currPageNo<page.totalPageCount}">下一页</a>
+    <a class="btn btn-top" th:href="@{/statisticsController/getRoleList(currpageno=${page.currPageNo}-1)}"
+	   th:if="${page.currPageNo}>1">上一页</a><span>第<strong th:text="${page.currPageNo}"></strong>页</span>
+    <a class="btn btn-down" th:href="@{/statisticsController/getRoleList(currpageno=${page.currPageNo}+1)}"
+	   th:if="${page.currPageNo<page.totalPageCount}">下一页</a>
     </div>
 </div>
 <!--_footer 作为公共模版分离出去-->

@@ -1,9 +1,9 @@
 package com.hz.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hz.pojo.FoStation;
 import com.hz.pojo.Page;
 import com.hz.service.StationService;
-import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +24,8 @@ public class StationController {
     public String getFoStation(@RequestParam(value = "currpageno",required = false,defaultValue = "1") int currpageno,
                                @RequestParam(value = "pagesize",required = false,defaultValue = "8") int pagesize,
                                @RequestParam(value = "station_name",required = false) String station_name,
-                               @RequestParam(value = "station_state",required = false) Integer station_state,HttpServletRequest request) {
+                               @RequestParam(value = "station_state",required = false) Integer station_state,HttpServletRequest request,
+                               @RequestParam(value = "roleName",required = false)String roleName) {
 
         try {
             List<FoStation> stationList = stationService.getFoStationList(currpageno,pagesize,station_name,station_state);
@@ -43,6 +44,18 @@ public class StationController {
             e.printStackTrace();
         }
         return "station-type";
+    }
+    @RequestMapping("/getMapStation")
+    @ResponseBody
+    public JSONObject getMapStation(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            List<FoStation> stationList = stationService.getFoStationList(1,100000,null,null);
+            jsonObject.put("stationList",stationList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 
     @RequestMapping("/updStationInfo")

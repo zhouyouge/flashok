@@ -11,5 +11,11 @@ public interface StatisticsService {
     public int getRoleCount()throws Exception;
     public int deleteRole(FoRole foRole)throws Exception;
     public int insertRole(FoRole foRole)throws Exception;
-    public int deleteRoles(String[] array)throws Exception;
+    /**
+     * service 层批量删除接口
+     * @param
+     * @return
+     * @throws Exception
+     */
+    public int deleteRoles(String[] array);
 }

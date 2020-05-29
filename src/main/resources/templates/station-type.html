@@ -30,9 +30,13 @@
         background-color: rgb(94,185,94);
         border-radius: 5px;
     }
+    .label-stop{
+        background-color: #e51d18;
+        border-radius: 5px;
+    }
 
 </style>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 电站管理 <span class="c-gray en">&gt;</span> 价格管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <form class="Huiform" method="post" th:action="@{/stationController/getStationType}" >
         电站名称:<input type="text" th:value="${station_name}"
@@ -40,12 +44,13 @@
         状态:
         <select name="station_state" style="width:120px">
             <option value="">请选择</option >
-            <option value="1" th:selected="${station_state==1}" >启用</option>
-            <option value="5"  th:selected="${station_state==5}">禁用</option>
+            <option value="1" th:selected="${station_state==1}">正常</option>
+            <option value="2" th:selected="${station_state==2}">在建</option>
+            <option value="5" th:selected="${station_state==5}">停用</option>
         </select>
         <input type="submit" class="btn btn-success" value="查询">
     </form>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="station_add('添加电站','/station-add.html','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加电站</a></span> <span class="r">共有数据：<strong th:text="${page.totalCount}"></strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="station_add('添加电站','/stationController/addinfo','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加电站</a></span> <span class="r">共有数据：<strong th:text="${page.totalCount}"></strong> 条</span> </div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-hover table-bg">
             <thead>
@@ -54,10 +59,11 @@
                 <th width="25">序号</th>
                 <th width="70">电站编号</th>
                 <th width="80">电站名称</th>
-                <th width="80">成本费用 (元/千瓦时)</th>
-                <th width="80">服务费 (元/千瓦时)</th>
-                <th width="100">直流充电电费 (元/千瓦时)</th>
-                <th width="100">交流充电电费 (元/千瓦时)</th>
+                <th width="80">所属电站</th>
+                <th width="80">成本费用 (元/小时)</th>
+                <th width="80">服务费 (元/小时)</th>
+                <th width="100">直流充电电费 (元/小时)</th>
+                <th width="100">交流充电电费 (元/小时)</th>
                 <th width="80">电站状态</th>
                 <th width="100">操作</th>
             </tr>
@@ -68,15 +74,17 @@
                 <td th:text="${station.station_id}"></td>
                 <td th:text="${station.station_code}"></td>
                 <td th:text="${station.station_name}"></td>
+                <td th:text="${station.state.state_name}"></td>
                 <td th:text="${station.station_cost}"></td>
                 <td th:text="${station.station_service}"></td>
                 <td th:text="${station.state_dcprice}"></td>
                 <td th:text="${station.state_acprice}"></td>
                 <td class="td-status">
-                    <span class="label label-success radius" th:if="${station.station_state == 1}" th:value="${station.station_state}">启用</span>
-                    <span class="label label-defaunt radius" th:if="${station.station_state == 5}" th:value="${station.station_state}">禁用</span>
+                    <span class="label label-success radius" th:if="${station.station_state == 1}" th:value="${station.station_state}">正常</span>
+                    <span class="label label-defaunt radius" th:if="${station.station_state == 2}" th:value="${station.station_state}">在建</span>
+                    <span class="label label-stop radius" th:if="${station.station_state == 5}" th:value="${station.station_state}">停用</span>
                 </td>
-                <td class="td-manage"><a style="text-decoration:none" id="stop"  href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" class="xiugai" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> </td>
+                <td class="td-manage"><a title="编辑" href="javascript:;" class="xiugai" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> </td>
             </tr>
             </tbody>
         </table>
@@ -101,15 +109,7 @@
 <script type="text/javascript" src="/index/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/index/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
-    // $(function () {
-    //     $('.table-sort').dataTable({
-    //         "bStateSave": true,//状态保存
-    //         "aoColumnDefs": [
-    //             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-    //             {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
-    //         ]
-    //     });
-    // })
+
 
     /*用户-添加*/
     function station_add(title,url,w,h){
@@ -118,92 +118,12 @@
     /*用户-查看*/
     $(function () {
         $(document).on('click','.xiugai',function () {
-            var station_id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().html();
+            var station_id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().html();
             layer_show(null,"/stationController/updStationInfo?station_id="+station_id,"","510");
 
         })
     })
 
-    /*用户-停用*/
-    $(function () {
-        $(document).on('mouseenter','#stop',function () {
-            var aaa = $(this).parent().prev().children(".label").html();
-            if (aaa == "启用"){
-                $(this).attr("title","停用");
-            } else{
-                $(this).attr("title","启用");
-            }
-        })
-        $(document).on('click','#stop',function () {
-            var station_id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().html();
-            var aaa = $(this).parent().prev().children(".label").html();
-            var station_state = 0;
-            if (aaa == "启用"){
-                station_state = 1;
-                layer.confirm('确认要停用吗？',function(){
-                    $.ajax({
-                        type: 'POST',
-                        url: '/stationController/updState',
-                        data:{station_id:station_id,station_state:station_state},
-                        dataType: 'json',
-                        success: function(res){
-                            if (res.code == 1){
-                                layer.msg('已停用!',{icon: 5,time:1000},function () {
-                                    location.reload();
-                                });
-                            }
-                        }
-                    });
-                });
-            }else{
-                station_state = 5;
-                layer.confirm('确认要启用吗？',function(index){
-                    $.ajax({
-                        type: 'POST',
-                        url: '/stationController/updState',
-                        data:{station_id:station_id,station_state:station_state},
-                        dataType: 'json',
-                        success: function(res){
-                            if (res.code == 1){
-                                layer.msg('已启用!',{icon: 6,time:1000},function () {
-                                    location.reload();
-                                });
-                            }
-                        }
-                    });
-                });
-
-            }
-
-        })
-    })
-
-
-    /*用户-编辑*/
-    function member_edit(title,url,id,w,h){
-        layer_show(title,url,w,h);
-    }
-    /*密码-修改*/
-    function change_password(title,url,id,w,h){
-        layer_show(title,url,w,h);
-    }
-    /*用户-删除*/
-    // function member_del(obj,id){
-    // 	layer.confirm('确认要删除吗？',function(index){
-    // 		$.ajax({
-    // 			type: 'POST',
-    // 			url: '',
-    // 			dataType: 'json',
-    // 			success: function(data){
-    // 				$(obj).parents("tr").remove();
-    // 				layer.msg('已删除!',{icon:1,time:1000});
-    // 			},
-    // 			error:function(data) {
-    // 				console.log(data.msg);
-    // 			},
-    // 		});
-    // 	});
-    // }
 
 
 </script>

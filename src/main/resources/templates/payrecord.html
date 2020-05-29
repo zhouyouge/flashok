@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="Bookmark" href="/favicon.ico" >
+    <link rel="Shortcut Icon" href="/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="/index/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/index/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/index/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/index/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/index/static/h-ui.admin/css/style.css" />
+    <title>充值订单</title>
+</head>
+<style>
+    .fanye{
+        float: right;
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+    .btn-top {
+        background-color: rgb(94,185,94);
+        border-radius: 5px;
+    }
+    .btn-down {
+        background-color: rgb(94,185,94);
+        border-radius: 5px;
+    }
+
+</style>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 充值订单 <span class="c-gray en">&gt;</span> 充值订单 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <form class="Huiform" method="post" th:action="@{/payRecord/getPayRecordList}" >
+    <input type="hidden" name="currPageNo"/>
+    用户名:<input type="text" th:value="${user_wechat_name}"
+                 name="user_wechat_name"  placeholder="支持模糊查询" class="input-text" style="width:320px"/>
+    <input type="submit" class="btn btn-success" value="查询">
+</form>
+<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"></span><span class="r">共有数据：<strong><span th:text="${page.totalCount}"></span></strong> 条</span></div>
+<table class="table table-border table-bordered table-bg">
+    <thead>
+    <tr>
+        <th scope="col" colspan="10">用户充值记录</th>
+    </tr>
+    <tr class="text-c">
+        <th>充值记录ID</th>
+        <th>用户名</th>
+        <th>邮箱</th>
+        <th>电话</th>
+        <th>性别</th>
+        <th>家庭住址</th>
+        <th>账户余额</th>
+        <th>充值时间</th>
+        <th>充值金额</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="text-c" th:each="payrecord:${payrecordList}" >
+        <td th:text="${payrecord.payrecord_id}"></td>
+        <td th:text="${payrecord.foUser.user_wechat_name}"></td>
+        <td th:text="${payrecord.foUser.user_email}"></td>
+        <td th:text="${payrecord.foUser.user_phone}"></td>
+        <td>
+            <span th:if="${payrecord.foUser.user_sex==1}">男</span>
+            <span th:if="${payrecord.foUser.user_sex==2}">女</span>
+            <span th:if="${payrecord.foUser.user_sex==3}">保密</span>
+        </td>
+        <td th:text="${payrecord.foUser.user_addr}"></td>
+        <td th:text="${payrecord.foUser.user_money}"></td>
+        <td th:text="${payrecord.payrecord_time}"></td>
+        <td th:text="${payrecord.payrecord_money}"></td>
+
+    </tr>
+    </tbody>
+</table>
+<div class="fanye">
+    <a th:href="@{/payRecord/getPayRecordList(currpageno=1,user_wechat_name=${user_wechat_name})}">首页</a>
+    <a class="btn btn-top" th:href="@{/payRecord/getPayRecordList(currpageno=${page.currPageNo}-1,user_wechat_name=${user_wechat_name})}" th:if="${page.currPageNo}>1">上一页</a>
+    <a class="btn btn-down" th:href="@{/payRecord/getPayRecordList(currpageno=${page.currPageNo}+1,user_wechat_name=${user_wechat_name})}" th:if="${page.currPageNo<page.totalPageCount}">下一页</a>
+    <a th:href="@{/payRecord/getPayRecordList(currpageno=${page.currPageNo},user_wechat_name=${user_wechat_name})}">尾页</a>
+    <br/>
+    当前第<span th:text="${page.currPageNo}"/>页，共<span th:text="${page.totalPageCount}"/>页
+</div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/index/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/index/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/index/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/index/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/index/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/index/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/index/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/index/static/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+    /*
+        参数解释：
+        title	标题
+        url		请求的url
+        id		需要操作的数据id
+        w		弹出层宽度（缺省调默认值）
+        h		弹出层高度（缺省调默认值）
+    */
+    // $(function () {
+    //     var ajaxdata = function (admin_name,admin_state,currPageNo) {
+    //         var data = {
+    //             admin_name:admin_name,
+    //             admin_state:admin_state,
+    //             currpageno:currPageNo
+    //         };
+    //         var html = "";
+    //         $.post("/foAdmin/adminjsons",data,function (resjson) {
+    //
+    //
+    //             $("#currPageNo").val(resjson.currPageNo);
+    //             $.each(resjson.objectList,function () {
+    //                 html +=" <tr class='text-c'>";
+    //                 html +="<td>"+this.admin_id+"</td>";
+    //                 html +="<td>"+this.admin_name+"</td>";
+    //                 html +="<td>"+this.admin_email+"</td>";
+    //                 html +="<td>"+this.admin_remarks+"</td>";
+    //                 html +="<td>"+this.admin_addtime+"</td>";
+    //                 if(this.admin_state==0)
+    //                 {
+    //                     html +="<td class='td-status'><span class=\"label label-success radius\">已启用</span></td>";
+    //                     html +="<td class='td-manage'><a style='text-decoration:none' onclick=\"admin_stop(this,'10001')\" href=\"javascript:;\" title='停用'><i class='Hui-iconfont'>&#xe631;</i></a> <a title='编辑'<a title=\"编辑\" href=\"javascript:;\" onclick=\"admin_edit('管理员编辑','admin-add.html','1','800','500')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6df;</i></a> <a title=\"删除\" href=\"javascript:;\" onclick=\"admin_del(this,'1')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6e2;</i></td>";
+    //                 }else{
+    //                     html +="<td class='td-status'><span class=\"label label-success radius\">已启用</span></td>";
+    //                     html +="<td class='td-manage'><a style='text-decoration:none' onclick=\"admin_start(this,'10001')\" href=\"javascript:;\" title='启用'><i class='Hui-iconfont'>&#xe631;</i></a> <a title='编辑'<a title=\"编辑\" href=\"javascript:;\" onclick=\"admin_edit('管理员编辑','admin-add.html','1','800','500')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6df;</i></a> <a title=\"删除\" href=\"javascript:;\" onclick=\"admin_del(this,'1')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6e2;</i></td>";
+    //                 }
+    //
+    //                 html +=" </tr>";
+    //             });
+    //             $("#count").html(resjson.totalCount);
+    //             $("#adminbody").html(html);
+    //         },"json");
+    //     }
+    //     ajaxdata(null,null);
+    //     $("#btnsub").click(function () {
+    //         var  admin_name = $("#admin_name").val();
+    //         var admin_state = $("#admin_state").val();
+    //         ajaxdata(admin_name,admin_state);
+    //
+    //     });
+    //
+    // });
+    // /*管理员-增加*/
+    // function admin_add(title,url,w,h){
+    //     layer_show(title,url,w,h);
+    // }
+    // /*管理员-删除*/
+    // function admin_del(obj,id){
+    //     layer.confirm('确认要删除吗？',function(index){
+    //         $.ajax({
+    //             type: 'GET',
+    //             url: '',
+    //             dataType: 'json',
+    //             success: function(data){
+    //                 $(obj).parents("tr").remove();
+    //                 layer.msg('已删除!',{icon:1,time:1000});
+    //             },
+    //             error:function(data) {
+    //                 console.log(data.msg);
+    //             },
+    //         });
+    //     });
+    // }
+    //
+    // /*管理员-编辑*/
+    // function admin_edit(title,url,id,w,h){
+    //     layer_show(title,url,w,h);
+    // }
+    // /*管理员-停用*/
+    // function admin_stop(obj,id){
+    //     layer.confirm('确认要停用吗？',function(index){
+    //         //此处请求后台程序，下方是成功后的前台处理……
+    //
+    //         $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,id)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+    //         $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
+    //         $(obj).remove();
+    //         layer.msg('已停用!',{icon: 5,time:1000});
+    //     });
+    // }
+    //
+    // /*管理员-启用*/
+    // function admin_start(obj,id){
+    //     layer.confirm('确认要启用吗？',function(index){
+    //         //此处请求后台程序，下方是成功后的前台处理……
+    //
+    //
+    //         $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,id)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+    //         $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+    //         $(obj).remove();
+    //         layer.msg('已启用!', {icon: 6,time:1000});
+    //     });
+    // }
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.dao.PileParaMapper">
+    <resultMap id="parameterMap" type="FoParameter">
+        <id property="parameter_id" column="parameter_id"/>
+        <result property="parameter_voltage" column="parameter_voltage"/>
+        <result property="parameter_current" column="parameter_current"/>
+        <result property="parameter_capacity" column="parameter_capacity"/>
+        <result property="parameter_electricity" column="parameter_electricity"/>
+        <result property="parameter_creationtime" column="parameter_creationtime"/>
+        <association property="piletype" javaType="FoPiletype">
+            <id property="piletype_id" column="piletype_id"/>
+            <result property="piletype_name" column="piletype_name"/>
+        </association>
+    </resultMap>
+    <sql id="parameterSql">
+        parameter_id,a.piletype_id,piletype_name,parameter_voltage,parameter_current,parameter_capacity,parameter_electricity,parameter_creationtime
+    </sql>
+    <sql id="parameterWhere">
+        <where>
+            <if test="piletype_name!=null and piletype_name!=''">
+                piletype_name LIKE CONCAT('%',#{piletype_name},'%')
+            </if>
+            <if test="parameter_electricity!=null and parameter_electricity!=''">
+                and parameter_electricity LIKE CONCAT('%',#{parameter_electricity},'%')
+            </if>
+        </where>
+    </sql>
+    <select id="getParameterList" resultMap="parameterMap">
+        SELECT <include refid="parameterSql"/>
+        FROM fo_parameter a LEFT JOIN fo_piletype b ON a.piletype_id = b.piletype_id <include refid="parameterWhere"/> limit #{pagecurr},#{pagesize}
+
+    </select>
+
+    <select id="getCount" resultType="int">
+        SELECT count(1) FROM fo_parameter a LEFT JOIN fo_piletype b ON a.piletype_id = b.piletype_id <include refid="parameterWhere"/>
+    </select>
+
+    <select id="getParameterById" parameterType="long" resultMap="parameterMap">
+        SELECT <include refid="parameterSql"/>
+        FROM fo_parameter a LEFT JOIN fo_piletype b ON a.piletype_id = b.piletype_id where parameter_id = #{parameter_id}
+    </select>
+    <insert id="addType">
+        insert into fo_parameter (piletype_id,parameter_voltage,parameter_current,parameter_capacity,parameter_electricity)
+        values (#{type.piletype_id},#{type.parameter_voltage},#{type.parameter_current},#{type.parameter_capacity},#{type.parameter_electricity})
+    </insert>
+    <update id="updType">
+        UPDATE fo_parameter
+        <set>
+            <if test="type.parameter_capacity!=null">
+                 parameter_capacity=#{type.parameter_capacity},
+            </if>
+            <if test="type.parameter_voltage!=null">
+                 parameter_voltage=#{type.parameter_voltage},
+            </if>
+            <if test="type.parameter_current!=null">
+                 parameter_current=#{type.parameter_current},
+            </if>
+            <if test="type.parameter_electricity!=null">
+                parameter_electricity=#{type.parameter_electricity},
+            </if>
+        </set>
+        where parameter_id = #{type.parameter_id}
+    </update>
+    <select id="piletype" resultType="FoPiletype" parameterType="long">
+        select piletype_id,piletype_name from fo_piletype
+    </select>
+</mapper>

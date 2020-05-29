@@ -1,53 +1,39 @@
 ﻿<!DOCTYPE HTML>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8">
-<meta name="renderer" content="webkit|ie-comp|ie-stand">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta charset="utf-8"/>
+<meta name="renderer" content="webkit|ie-comp|ie-stand"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<link rel="Bookmark" href="/favicon.ico" >
-<link rel="Shortcut Icon" href="/favicon.ico" />
+<link rel="Bookmark" href=" "/>
+<link rel="Shortcut Icon" href=" " />
 
-<![endif]-->
 <link rel="stylesheet" type="text/css" href="index/static/h-ui/css/H-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="index/static/h-ui.admin/css/H-ui.admin.css" />
 <link rel="stylesheet" type="text/css" href="index/lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="index/static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="index/static/h-ui.admin/css/style.css" />
 
-<![endif]-->
-<title>H-ui.admin v3.1</title>
+<title>电桩管理系统</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 </head>
 <body>
 <header class="navbar-wrapper">
 	<div class="navbar navbar-fixed-top">
-		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">H-ui.admin</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a> 
+		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">电桩管理系统</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a>
 			<span class="logo navbar-slogan f-l mr-10 hidden-xs">v3.1</span> 
 			<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
-			<nav class="nav navbar-nav">
-				<ul class="cl">
-					<li class="dropDown dropDown_hover"><a href="javascript:;" class="dropDown_A"><i class="Hui-iconfont">&#xe600;</i> 新增 <i class="Hui-iconfont">&#xe6d5;</i></a>
-						<ul class="dropDown-menu menu radius box-shadow">
-							<li><a href="javascript:;" onclick="article_add('添加资讯','article-add.html')"><i class="Hui-iconfont">&#xe616;</i> 资讯</a></li>
-							<li><a href="javascript:;" onclick="picture_add('添加资讯','picture-add.html')"><i class="Hui-iconfont">&#xe613;</i> 图片</a></li>
-							<li><a href="javascript:;" onclick="product_add('添加资讯','product-add.html')"><i class="Hui-iconfont">&#xe620;</i> 产品</a></li>
-							<li><a href="javascript:;" onclick="member_add('添加用户','member-add.html','','510')"><i class="Hui-iconfont">&#xe60d;</i> 用户</a></li>
-					</ul>
-				</li>
-			</ul>
-		</nav>
 		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 			<ul class="cl">
-				<li>超级管理员</li>
+				<li>你好：</li>
 				<li class="dropDown dropDown_hover">
-					<a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+					<a href="#" class="dropDown_A" id="nc" style="color: yellow"><i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
 						<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
-						<li><a href="#">切换账户</a></li>
-						<li><a href="#">退出</a></li>
+						<li><a href="login.html">切换账户</a></li>
+						<li><a href="login.html">退出</a></li>
 				</ul>
 			</li>
 				<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li>
@@ -77,31 +63,24 @@
 			<!--</ul>-->
 		<!--</dd>-->
 	<!--</dl>-->
-		<dl id="menu-picture">
-			<dt><i class="Hui-iconfont">&#xe613;</i> 订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="picture-list.html" data-title="充值订单" href="javascript:void(0)">充值订单</a></li>
-					<li><a data-href="picture-list.html" data-title="消费记录" href="javascript:void(1)">消费记录</a></li>
-					<li><a data-href="picture-list.html" data-title="异常订单" href="javascript:void(2)">异常订单</a></li>
-			</ul>
-		</dd>
-	</dl>
+
 		<dl id="menu-product">
 			<dt><i class="Hui-iconfont">&#xe620;</i> 电站管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/stationController/getStationType" data-title="价格管理" href="javascript:void(0)">价格管理</a></li>
-					<li><a data-href="product-category.html" data-title="电站管理员" href="javascript:void(1)">电站管理员</a></li>
+					<li><a id="choose1" data-href="/stationController/getStationType" data-title="价格管理" href="javascript:void(0)">价格管理</a></li>
+					<li><a id="choose2" data-href="/stationAdminController/stationAdminlist" data-title="电站管理员" href="javascript:void(1)">电站管理员</a></li>
 			</ul>
 		</dd>
 	</dl>
 		<dl id="menu-comments">
-			<dt><i class="Hui-iconfont">&#xe622;</i> 电桩管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe620;</i> 电桩管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/pileController/getState" data-title="电桩状态" href="javascript:;">电桩状态</a></li>
-					<li><a data-href="/pileController/getPile" data-title="故障管理" href="javascript:void(0)">故障管理 </a></li>
+					<li><a id="choose3" data-href="/pileStateController/getPile" data-title="电桩状态" href="javascript:;">电桩状态</a></li>
+					<li><a id="choose4" data-href="/pileParaController/getPileType" data-title="电桩参数类型" href="javascript:;">电桩参数类型</a></li>
+					<li><a id="choose5" data-href="/pileTypeController/getPileType" data-title="电桩类型" href="javascript:;">电桩类型</a></li>
+					<li><a id="choose6" data-href="/warningController/getWarningList" data-title="故障管理" href="javascript:void(0)">故障管理 </a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -110,23 +89,27 @@
 			<dd>
 				<ul>
 					<li><a data-href="/userController/getUserList" data-title="用户列表" href="javascript:;">用户列表</a></li>
-					<li><a data-href="member-del.html" data-title="注销的用户" href="javascript:;">注销的用户</a></li>
-					<li><a data-href="member-level.html" data-title="等级管理" href="javascript:;">等级管理</a></li>
-					<li><a data-href="member-scoreoperation.html" data-title="积分管理" href="javascript:;">积分管理</a></li>
-					<li><a data-href="member-record-browse.html" data-title="浏览记录" href="javascript:void(0)">浏览记录</a></li>
-					<li><a data-href="member-record-share.html" data-title="分享记录" href="javascript:void(0)">分享记录</a></li>
+					<li><a data-href="/statisticsController/getRoleList" data-title="角色管理" href="javascript:void(2)">角色管理</a></li>
+					<li><a data-href="admin-permission.html" data-title="权限管理" href="javascript:void(3)">权限管理</a></li>
+					<li><a data-href="/foAdmin/getAdminList" data-title="管理员列表" href="javascript:void(4)">管理员列表</a></li>
 			</ul>
 		</dd>
 	</dl>
+		<dl id="menu-picture">
+			<dt><i class="Hui-iconfont"th:if="${code==1}">&#xe613;</i> 订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="picture-list.html" data-title="充值订单" href="javascript:void(0)">充值订单</a></li>
+					<li><a data-href="/OrderController/getOrderList" data-title="消费记录" href="javascript:void(1)">消费记录</a></li>
+					<li><a data-href="picture-list.html" data-title="异常订单" href="javascript:void(2)">异常订单</a></li>
+				</ul>
+			</dd>
+		</dl>
 		<dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i> 统计报表<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont"th:if="${code==1}">&#xe62d;</i> 统计报表<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="charts-4.html" data-title="总报表" href="javascript:void(0)">总报表</a></li>
-					<li><a data-href="admin-permission.html" data-title="区域报表" href="javascript:void(1)">区域报表</a></li>
-					<li><a data-href="/statisticsController/getRoleList" data-title="角色管理" href="javascript:void(2)">角色管理</a></li>
-					<li><a data-href="admin-permission.html" data-title="权限管理" href="javascript:void(3)">权限管理</a></li>
-					<li><a data-href="admin-permission.html" data-title="管理员列表" href="javascript:void(4)">管理员列表</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -148,11 +131,7 @@
 			<dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="system-base.html" data-title="系统设置" href="javascript:void(0)">系统设置</a></li>
-					<li><a data-href="system-category.html" data-title="栏目管理" href="javascript:void(0)">栏目管理</a></li>
-					<li><a data-href="system-data.html" data-title="数据字典" href="javascript:void(0)">数据字典</a></li>
 					<li><a data-href="system-shielding.html" data-title="屏蔽词" href="javascript:void(0)">屏蔽词</a></li>
-					<li><a data-href="system-log.html" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -194,6 +173,54 @@
 <script type="text/javascript" src="index/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
 <script type="text/javascript">
 $(function(){
+
+    //获取链接里面的参数。
+    function GetPar(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r != null) return decodeURIComponent(r[2]);
+        return null;
+    }
+	//传入参数名称（为字符串形式）
+	//在这里获取，用变量储存，在后续页面才能获得，否则后续子页面无法获取
+    var roleName=GetPar("roleName");
+    if (roleName==null){
+        layer.msg('请先登录！',{icon: 5,time:2000},function () {
+            location="login.html";
+        });
+	}else{
+        layer.msg('欢迎'+roleName+'登录！',{icon: 6,time:3000},function () {
+            document.getElementById('nc').innerHTML=roleName;
+            if (roleName != "超级管理员") {
+                $('#choose1').attr('data-href','/stationController/getStationType?roleName='+roleName);
+                $('#choose2').attr('data-href','/stationAdminController/stationAdminlist?roleName='+roleName);
+                $('#choose3').attr('data-href','/pileStateController/getPile?roleName='+roleName);
+                $('#choose4').attr('data-href','/pileParaController/getPileType?roleName='+roleName);
+                $('#choose5').attr('data-href','/pileTypeController/getPileType?roleName='+roleName);
+                $('#choose6').attr('data-href','/warningController/getWarningList?roleName='+roleName);
+            }
+        });
+	}
+	$.ajax({
+		url:"/IndexController/PanduanRole",
+		data:{roleName:roleName},
+		dataType:"json",
+		type:"post",
+		success:function (res) {
+			if (res.code == 2){
+			    $("#menu-member").hide();
+                $("#menu-picture").hide();
+                $("#menu-admin").hide();
+                $("#menu-system").hide();
+			}else if (res.code == 3) {
+                $("#menu-member").show();
+                $("#menu-picture").show();
+                $("#menu-admin").show();
+                $("#menu-system").show();
+			}
+        }
+	})
+
 	/*$("#min_title_list li").contextMenu('Huiadminmenu', {
 		bindings: {
 			'closethis': function(t) {
@@ -208,6 +235,7 @@ $(function(){
 		}
 	});*/
 });
+
 /*个人信息*/
 function myselfinfo(){
 	layer.open({
@@ -220,7 +248,6 @@ function myselfinfo(){
 		content: '<div>管理员信息</div>'
 	});
 }
-
 /*资讯-添加*/
 function article_add(title,url){
 	var index = layer.open({

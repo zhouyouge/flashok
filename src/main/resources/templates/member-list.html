@@ -36,9 +36,9 @@
 <div class="page-container">
 	<form th:action="@{/userController/getUserList}" method="post">
 	<div class="text-c"> 日期范围：
-		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" style="width:120px;">
+		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" th:value="${datemin}" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;">
 		  -
-		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
+		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" th:value="${datemax}" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
 		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称" th:value="${user_wechat_name}" name="user_wechat_name">
 		<select name="user_state">
 			<option value="">请选择</option>
@@ -68,7 +68,7 @@
 		<tbody>
 			<tr class="text-c" th:each="user:${foUserList}">
 				<td><input type="checkbox" value="1" name="" ></td>
-				<td th:text="${user.user_id}"></td>
+				<td th:text="${userStat.index+1}" th:name="${user.user_id}"></td>
 				<td><u style="cursor:pointer" class="text-primary"  th:text="${user.user_wechat_name}"></u></td>
 				<td>
 					<span th:if="${user.user_sex == 1}">男</span>
@@ -76,7 +76,7 @@
 				</td>
 				<td th:text="${user.user_phone}"></td>
 				<td th:text="${user.user_email}"></td>
-				<td th:text="${user.user_addr}" ></td>
+				<td th:text="${user.user_addr}" lang="zh_CN"></td>
 				<td th:text="${user.user_createtime}"></td>
 				<td class="td-status">
 					<span class="label label-success radius" th:if="${user.user_state == 0}" th:value="${user.user_state}">启用</span>
@@ -124,11 +124,10 @@ function member_show(title,url,id,w,h){
 // 用户个人信息查看
 $(function () {
     $(document).on('click','.text-primary',function () {
-        var user_id = $(this).parent().prev().html();
+        var user_id = $(this).parent().prev().attr("name");
         layer_show(null,"/userController/userShow?user_id="+user_id,"360","400");
-
-	})
-})
+	});
+});
 
 /*用户-停用*/
 $(function () {
@@ -139,9 +138,10 @@ $(function () {
         } else{
             $(this).attr("title","启用");
         }
-    })
+    });
 	$(document).on('click','#stop',function () {
-        var user_id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().html();
+        var user_id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().attr("name");
+        alert(user_id);
         var aaa = $(this).parent().prev().children(".label").html();
 		var user_state = 0;
         if (aaa == "启用"){
@@ -182,17 +182,14 @@ $(function () {
 		}
 
     })
-})
+});
 
 
 /*用户-编辑*/
 function member_edit(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
-/*密码-修改*/
-function change_password(title,url,id,w,h){
-	layer_show(title,url,w,h);	
-}
+
 /*用户-删除*/
 // function member_del(obj,id){
 // 	layer.confirm('确认要删除吗？',function(index){

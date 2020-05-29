@@ -1,9 +1,11 @@
 package com.hz.pojo;
 
 
+import java.util.List;
+
 public class FoPile {
 
-  private long pile_id;//电站ID
+  private long pile_id;//电桩ID
   private String pile_code;//电桩编号
   private long station_id;//电站ID
   private long piletype_id;//电桩类型ID
@@ -12,6 +14,42 @@ public class FoPile {
   private FoParameter parameter;//电桩参数对象
   private FoPiletype piletype;//电桩类型对象
   private FoStation station;//电站对象
+  private List<FoWarning> foWarning1List; //故障对象
+  private String pile_warning_images; //故障图片
+  private String pile_warning_beizhu; //故障备注
+  private int pile_electric_type;//电桩电流类型
+
+  public int getPile_electric_type() {
+    return pile_electric_type;
+  }
+
+  public void setPile_electric_type(int pile_electric_type) {
+    this.pile_electric_type = pile_electric_type;
+  }
+
+  public List<FoWarning> getFoWarning1List() {
+    return foWarning1List;
+  }
+
+  public void setFoWarning1List(List<FoWarning> foWarning1List) {
+    this.foWarning1List = foWarning1List;
+  }
+
+  public String getPile_warning_images() {
+    return pile_warning_images;
+  }
+
+  public void setPile_warning_images(String pile_warning_images) {
+    this.pile_warning_images = pile_warning_images;
+  }
+
+  public String getPile_warning_beizhu() {
+    return pile_warning_beizhu;
+  }
+
+  public void setPile_warning_beizhu(String pile_warning_beizhu) {
+    this.pile_warning_beizhu = pile_warning_beizhu;
+  }
 
   public long getPile_id() {
     return pile_id;

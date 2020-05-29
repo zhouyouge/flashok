@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hz.dao.WarningMapper">
+    <insert id="addWarning">
+        insert into fo_warning (warning_type,warning_pile_code,warning_images,warning_beizhu)
+        values (#{warning_type},#{warning_pile_code},#{warning_images},#{warning_beizhu})
+    </insert>
+
+
+    <resultMap id="FoWarning" type="FoWarning">
+        <result property="warning_ID" column="warning_ID"></result>
+        <result property="warning_state" column="warning_state"></result>
+        <result property="warning_type" column="warning_type"></result>
+        <result property="warning_pile_code" column="warning_pile_code"></result>
+        <result property="warning_images" column="warning_images"></result>
+        <result property="warning_beizhu" column="warning_beizhu"></result>
+        <association property="foPile" javaType="FoPile">
+            <result property="station_id" column="station_id"></result>
+            <result property="pile_code" column="pile_code"></result>
+            <association property="station" javaType="FoStation">
+                <result property="station_id" column="station_id"></result>
+                <result property="station_name" column="station_name"></result>
+            </association>
+        </association>
+    </resultMap>
+    <select id="getWarningList" resultMap="FoWarning">
+        select c.station_name,b.pile_code,a.warning_state,a.warning_ID,a.warning_type,a.warning_pile_code,a.warning_images,a.warning_beizhu from fo_warning a
+        left join fo_pile b on a.warning_pile_code = b.pile_code left join fo_station c on
+        b.station_id = c.station_id
+        <where>
+            <if test="station_name!=null">
+                station_name like concat('%',#{station_name},'%')
+            </if>
+            <if test="warning_state!=null">
+                and warning_state = #{warning_state}
+            </if>
+        </where>
+        limit #{pagecurr},#{pagesize}
+    </select>
+
+    <select id="getWarningCount" resultType="int">
+        select count(1) from fo_warning a
+        left join fo_pile b on a.warning_pile_code = b.pile_code left join fo_station c on
+        b.station_id = c.station_id
+        <where>
+            <if test="station_name!=null">
+                station_name like concat('%',#{station_name},'%')
+            </if>
+            <if test="warning_state!=null">
+                and warning_state = #{warning_state}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateWarningState">
+        update fo_warning set warning_state = #{warning_state} where warning_ID = #{warning_ID}
+    </update>
+
+    <delete id="deleteWarning" parameterType="int">
+        delete from fo_warning where warning_ID in
+        <foreach item="warning_ID" collection="array" open="(" separator="," close=")">
+            #{warning_ID}
+        </foreach>
+    </delete>
+</mapper>

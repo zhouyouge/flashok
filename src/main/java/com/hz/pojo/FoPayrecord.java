@@ -4,9 +4,18 @@ package com.hz.pojo;
 public class FoPayrecord {
 
   private long payrecord_id;//充值记录ID
-  private long user_id;//用户ID
+  private long payrecord_user_id;//用户ID
   private String payrecord_time;//充值时间
   private double payrecord_money;//充值金额
+  private FoUser foUser;//用户
+
+  public FoUser getFoUser() {
+    return foUser;
+  }
+
+  public void setFoUser(FoUser foUser) {
+    this.foUser = foUser;
+  }
 
   public long getPayrecord_id() {
     return payrecord_id;
@@ -16,12 +25,12 @@ public class FoPayrecord {
     this.payrecord_id = payrecord_id;
   }
 
-  public long getUser_id() {
-    return user_id;
+  public long getPayrecord_user_id() {
+    return payrecord_user_id;
   }
 
-  public void setUser_id(long user_id) {
-    this.user_id = user_id;
+  public void setPayrecord_user_id(long payrecord_user_id) {
+    this.payrecord_user_id = payrecord_user_id;
   }
 
   public String getPayrecord_time() {

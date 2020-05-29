@@ -1,32 +1,38 @@
 package com.hz.pojo;
 
 public class FoWarning {
-    private int warning_id; //故障id
+    private int  warning_ID;//故障id
     private String warning_type; //故障类型
-    private int warning_station_id; //故障电站id
-    private int warning_pile_id; // 故障电桩id
-    private int warning_piletype_id; // 故障电桩类型id
-    private String warning_images; // 故障图片
+    private String warning_pile_code; //故障电桩编号
+    private String warning_images; //故障图片
     private String warning_beizhu; //故障备注
+    private FoPile foPile; //电桩对象
+    private Integer warning_state;//故障状态
 
 
-
-    public int getWarning_station_id() {
-        return warning_station_id;
+    public int getWarning_ID() {
+        return warning_ID;
     }
 
-    public void setWarning_station_id(int warning_station_id) {
-        this.warning_station_id = warning_station_id;
+    public void setWarning_ID(int warning_ID) {
+        this.warning_ID = warning_ID;
     }
 
-    public int getWarning_id() {
-        return warning_id;
+    public Integer getWarning_state() {
+        return warning_state;
     }
 
-    public void setWarning_id(int warning_id) {
-        this.warning_id = warning_id;
+    public void setWarning_state(Integer warning_state) {
+        this.warning_state = warning_state;
     }
 
+    public FoPile getFoPile() {
+        return foPile;
+    }
+
+    public void setFoPile(FoPile foPile) {
+        this.foPile = foPile;
+    }
     public String getWarning_type() {
         return warning_type;
     }
@@ -35,20 +41,12 @@ public class FoWarning {
         this.warning_type = warning_type;
     }
 
-    public int getWarning_pile_id() {
-        return warning_pile_id;
+    public String getWarning_pile_code() {
+        return warning_pile_code;
     }
 
-    public void setWarning_pile_id(int warning_pile_id) {
-        this.warning_pile_id = warning_pile_id;
-    }
-
-    public int getWarning_piletype_id() {
-        return warning_piletype_id;
-    }
-
-    public void setWarning_piletype_id(int warning_piletype_id) {
-        this.warning_piletype_id = warning_piletype_id;
+    public void setWarning_pile_code(String warning_pile_code) {
+        this.warning_pile_code = warning_pile_code;
     }
 
     public String getWarning_images() {

@@ -79,8 +79,7 @@ public class StatisticsController {
 
     @RequestMapping("/deleteRoles")
     @ResponseBody
-    public String deleteRoles(@RequestParam("idarr")String[] array
-                                  ){
+    public String deleteRoles(@RequestParam("idarr")String[] array){
         JSONObject jsonObject = new JSONObject();
         try {
             int i = statisticsService.deleteRoles(array);
